@@ -14,6 +14,8 @@
         *{margin:0;padding:0;box-sizing:border-box}
         html{scroll-behavior:smooth}
         body{font-family:'Cairo',sans-serif;background:#0A0A0A;color:#fff;overflow-x:hidden}
+
+        /* Loading */
         #loading-screen{position:fixed;inset:0;z-index:9999;background:#0A0A0A;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .8s,visibility .8s}
         #loading-screen.hidden{opacity:0;visibility:hidden;pointer-events:none}
         .eye-glow{animation:eyePulse 2s ease-in-out infinite;filter:drop-shadow(0 0 20px rgba(212,175,55,.8))}
@@ -21,77 +23,136 @@
         .loading-text{margin-top:30px;font-family:'Amiri',serif;font-size:24px;color:#D4AF37;animation:textPulse 1.5s ease-in-out infinite}
         @keyframes textPulse{0%,100%{opacity:.5}50%{opacity:1}}
         @keyframes loadBar{0%{width:0}100%{width:100%}}
+
+        /* Particles */
         #particles-canvas{position:fixed;inset:0;z-index:1;pointer-events:none}
+
+        /* Gold Text */
         .gold-text{background:linear-gradient(135deg,#FFD700,#D4AF37,#B8941F,#FFD700);background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:goldShimmer 3s ease-in-out infinite}
         @keyframes goldShimmer{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+        /* Reveal */
         .reveal{opacity:0;transform:translateY(60px);transition:all 1s cubic-bezier(.16,1,.3,1)}
         .reveal.active{opacity:1;transform:translateY(0)}
+
+        /* Hero */
         .hero-sun{position:absolute;top:10%;left:50%;transform:translateX(-50%);width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(255,215,0,.4),transparent);animation:sunPulse 4s ease-in-out infinite}
         @keyframes sunPulse{0%,100%{transform:translateX(-50%) scale(1);opacity:.6}50%{transform:translateX(-50%) scale(1.2);opacity:1}}
         .pyramid{position:absolute;bottom:0;clip-path:polygon(50% 0%,0% 100%,100% 100%)}
         .pyramid-1{width:300px;height:200px;left:10%;background:linear-gradient(180deg,rgba(212,175,55,.15),rgba(212,175,55,.05))}
         .pyramid-2{width:400px;height:280px;left:30%;background:linear-gradient(180deg,rgba(212,175,55,.2),rgba(212,175,55,.07))}
         .pyramid-3{width:250px;height:170px;right:15%;background:linear-gradient(180deg,rgba(212,175,55,.12),rgba(212,175,55,.04))}
+
+        /* Buttons */
         .btn-gold{background:linear-gradient(135deg,#D4AF37,#B8941F);color:#0A0A0A;font-weight:700;padding:10px 24px;border-radius:8px;border:none;cursor:pointer;font-size:13px;font-family:'Cairo',sans-serif;transition:all .3s;box-shadow:0 4px 20px rgba(212,175,55,.3);text-decoration:none;display:inline-flex;align-items:center;gap:8px}
         .btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(212,175,55,.5);background:linear-gradient(135deg,#FFD700,#D4AF37)}
         .btn-outline-gold{background:transparent;border:2px solid #D4AF37;color:#D4AF37;padding:12px 28px;border-radius:8px;cursor:pointer;font-size:14px;font-family:'Cairo',sans-serif;font-weight:600;transition:all .3s;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
         .btn-outline-gold:hover{background:rgba(212,175,55,.1);box-shadow:0 0 20px rgba(212,175,55,.2);transform:translateY(-2px)}
-        .product-card{background:rgba(212,175,55,.03);border:1px solid rgba(212,175,55,.1);border-radius:16px;overflow:hidden;transition:all .4s cubic-bezier(.16,1,.3,1);position:relative;min-width:230px;flex-shrink:0}
-        .product-card:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(212,175,55,.15);border-color:rgba(212,175,55,.3)}
+
+        /* Product Card */
+        .product-card{background:rgba(212,175,55,.03);border:1px solid rgba(212,175,55,.1);border-radius:16px;overflow:hidden;transition:all .4s cubic-bezier(.16,1,.3,1);position:relative;width:228px;flex-shrink:0;scroll-snap-align:start}
+        .product-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(212,175,55,.12);border-color:rgba(212,175,55,.25)}
         .product-card:hover .card-glow{opacity:1}
         .card-glow{position:absolute;top:20%;left:50%;transform:translate(-50%,-50%);width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(212,175,55,.2),transparent);filter:blur(25px);opacity:0;transition:opacity .5s;pointer-events:none}
-        .slider-container{position:relative;overflow:hidden}
-        .slider-track{display:flex;gap:16px;transition:transform .5s cubic-bezier(.16,1,.3,1);padding:10px 0}
-        .slider-btn{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:rgba(212,175,55,.15);border:1px solid rgba(212,175,55,.3);color:#D4AF37;font-size:16px;cursor:pointer;z-index:10;transition:all .3s;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px)}
-        .slider-btn:hover{background:rgba(212,175,55,.3);box-shadow:0 0 20px rgba(212,175,55,.3)}
-        .slider-btn-prev{left:8px}
-        .slider-btn-next{right:8px}
-        .filter-btn{padding:10px 22px;border-radius:30px;border:1px solid rgba(212,175,55,.2);background:transparent;color:rgba(255,255,255,.6);font-family:'Cairo',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .3s;white-space:nowrap}
+
+        /* ★ FIXED SLIDER ★ */
+        .slider-wrapper{position:relative;padding:0 48px}
+        .slider-scroll{
+            overflow-x:auto;overflow-y:hidden;
+            scroll-behavior:smooth;
+            scroll-snap-type:x mandatory;
+            scrollbar-width:none;
+            -ms-overflow-style:none;
+            -webkit-overflow-scrolling:touch;
+        }
+        .slider-scroll::-webkit-scrollbar{display:none}
+        .slider-track{display:flex;gap:16px;padding:10px 4px}
+        .slider-btn{
+            position:absolute;top:50%;transform:translateY(-50%);z-index:10;
+            width:38px;height:38px;border-radius:50%;
+            background:rgba(10,10,10,.85);border:1px solid rgba(212,175,55,.35);
+            color:#D4AF37;font-size:15px;cursor:pointer;
+            display:flex;align-items:center;justify-content:center;
+            backdrop-filter:blur(8px);transition:all .3s;
+        }
+        .slider-btn:hover{background:rgba(212,175,55,.25);box-shadow:0 0 15px rgba(212,175,55,.3);border-color:#D4AF37}
+        .slider-btn-prev{right:0}
+        .slider-btn-next{left:0}
+        @media(max-width:640px){
+            .slider-wrapper{padding:0 36px}
+            .slider-btn{width:32px;height:32px;font-size:13px}
+            .product-card{width:190px}
+        }
+
+        /* Filter */
+        .filter-btn{padding:9px 20px;border-radius:30px;border:1px solid rgba(212,175,55,.2);background:transparent;color:rgba(255,255,255,.6);font-family:'Cairo',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .3s;white-space:nowrap}
         .filter-btn:hover{border-color:#D4AF37;color:#D4AF37}
         .filter-btn.active{background:linear-gradient(135deg,#D4AF37,#B8941F);color:#0A0A0A;border-color:transparent;box-shadow:0 4px 15px rgba(212,175,55,.3)}
-        .search-bar{background:rgba(212,175,55,.05);border:1px solid rgba(212,175,55,.2);border-radius:50px;padding:14px 24px;color:#fff;font-family:'Cairo',sans-serif;font-size:15px;width:100%;max-width:500px;outline:none;transition:all .3s}
+
+        /* Search */
+        .search-bar{background:rgba(212,175,55,.05);border:1px solid rgba(212,175,55,.2);border-radius:50px;padding:13px 22px;color:#fff;font-family:'Cairo',sans-serif;font-size:15px;width:100%;max-width:480px;outline:none;transition:all .3s}
         .search-bar:focus{border-color:#D4AF37;box-shadow:0 0 20px rgba(212,175,55,.15);background:rgba(212,175,55,.08)}
         .search-bar::placeholder{color:rgba(212,175,55,.4)}
-        .form-input{background:rgba(212,175,55,.05);border:1px solid rgba(212,175,55,.2);border-radius:8px;padding:14px 18px;color:#fff;font-family:'Cairo',sans-serif;font-size:15px;width:100%;transition:all .3s;outline:none}
+
+        /* Form */
+        .form-input{background:rgba(212,175,55,.05);border:1px solid rgba(212,175,55,.2);border-radius:8px;padding:13px 16px;color:#fff;font-family:'Cairo',sans-serif;font-size:15px;width:100%;transition:all .3s;outline:none}
         .form-input:focus{border-color:#D4AF37;box-shadow:0 0 20px rgba(212,175,55,.15)}
-        .form-input::placeholder{color:rgba(212,175,55,.4)}
-        .whatsapp-float{position:fixed;bottom:30px;left:30px;z-index:100;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);animation:waPulse 2s ease-in-out infinite;cursor:pointer;text-decoration:none;transition:transform .3s}
+
+        /* Floats */
+        .whatsapp-float{position:fixed;bottom:30px;left:30px;z-index:100;width:54px;height:54px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);animation:waPulse 2s ease-in-out infinite;cursor:pointer;text-decoration:none;transition:transform .3s}
         .whatsapp-float:hover{transform:scale(1.1)}
         @keyframes waPulse{0%,100%{box-shadow:0 4px 20px rgba(37,211,102,.4)}50%{box-shadow:0 4px 40px rgba(37,211,102,.7)}}
-        .cart-float{position:fixed;bottom:30px;right:30px;z-index:100;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#D4AF37,#B8941F);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(212,175,55,.4);cursor:pointer;transition:all .3s;border:none;color:#0A0A0A;font-size:22px}
+        .cart-float{position:fixed;bottom:30px;right:30px;z-index:100;width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#D4AF37,#B8941F);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(212,175,55,.4);cursor:pointer;transition:all .3s;border:none;color:#0A0A0A;font-size:20px}
         .cart-float:hover{transform:scale(1.1);box-shadow:0 8px 30px rgba(212,175,55,.6)}
-        .cart-badge{position:absolute;top:-4px;right:-4px;width:22px;height:22px;border-radius:50%;background:#ef4444;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid #0A0A0A;transition:transform .3s}
+        .cart-badge{position:absolute;top:-4px;right:-4px;min-width:20px;height:20px;border-radius:50%;background:#ef4444;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid #0A0A0A;transition:transform .3s;padding:0 4px}
         .cart-badge.bump{animation:badgeBump .4s ease}
         @keyframes badgeBump{0%{transform:scale(1)}50%{transform:scale(1.4)}100%{transform:scale(1)}}
+
+        /* Cart Panel */
         .cart-panel{position:fixed;top:0;right:-420px;width:400px;max-width:100vw;height:100vh;z-index:200;background:rgba(10,10,10,.98);backdrop-filter:blur(20px);border-left:1px solid rgba(212,175,55,.15);transition:right .4s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column;overflow:hidden}
         .cart-panel.open{right:0}
         .cart-overlay{position:fixed;inset:0;z-index:199;background:rgba(0,0,0,.6);opacity:0;visibility:hidden;transition:all .3s}
         .cart-overlay.open{opacity:1;visibility:visible}
+
+        /* Social */
         .social-icon{transition:all .3s}
         .social-icon:hover{transform:translateY(-5px) scale(1.1);box-shadow:0 8px 25px rgba(212,175,55,.3);border-color:#D4AF37 !important;background:rgba(212,175,55,.15) !important}
+
+        /* Nav */
         .navbar-scrolled{background:rgba(10,10,10,.95) !important;backdrop-filter:blur(20px) !important;box-shadow:0 4px 30px rgba(212,175,55,.1) !important}
         .mobile-menu{position:fixed;inset:0;z-index:90;background:rgba(10,10,10,.98);backdrop-filter:blur(20px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px;transform:translateX(100%);transition:transform .5s cubic-bezier(.16,1,.3,1)}
         .mobile-menu.open{transform:translateX(0)}
+
+        /* Ornament */
         .section-ornament{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:16px}
         .ornament-line{width:60px;height:1px;background:linear-gradient(90deg,transparent,#D4AF37)}
         .ornament-line.rev{background:linear-gradient(90deg,#D4AF37,transparent)}
         .ornament-diamond{width:10px;height:10px;border:1px solid #D4AF37;transform:rotate(45deg);background:rgba(212,175,55,.2)}
+
+        /* Toast */
         .toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-100px);background:linear-gradient(135deg,#D4AF37,#B8941F);color:#0A0A0A;padding:14px 28px;border-radius:12px;font-weight:700;z-index:10000;transition:transform .5s cubic-bezier(.16,1,.3,1);font-family:'Cairo',sans-serif;font-size:14px}
         .toast.show{transform:translateX(-50%) translateY(0)}
-        .size-btn{padding:5px 12px;border-radius:6px;border:1px solid rgba(212,175,55,.2);background:transparent;color:rgba(255,255,255,.5);font-size:11px;font-family:'Cairo',sans-serif;cursor:pointer;transition:all .3s}
+
+        /* Size */
+        .size-btn{padding:5px 11px;border-radius:6px;border:1px solid rgba(212,175,55,.2);background:transparent;color:rgba(255,255,255,.5);font-size:11px;font-family:'Cairo',sans-serif;cursor:pointer;transition:all .3s}
         .size-btn.active,.size-btn:hover{background:rgba(212,175,55,.15);border-color:#D4AF37;color:#D4AF37}
-        .cat-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:30px;background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.15);color:#D4AF37;font-size:11px;font-weight:600}
+
+        /* Badge */
+        .cat-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:30px;background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.15);color:#D4AF37;font-size:11px;font-weight:600}
+
+        /* Hieroglyph */
         .hieroglyph{position:absolute;font-size:24px;color:rgba(212,175,55,.08);animation:floatG 10s ease-in-out infinite;pointer-events:none;user-select:none}
         @keyframes floatG{0%,100%{transform:translateY(0);opacity:.06}50%{transform:translateY(-20px);opacity:.15}}
-        .cart-item{display:flex;gap:12px;padding:14px;border-radius:12px;background:rgba(212,175,55,.03);border:1px solid rgba(212,175,55,.08);transition:all .3s}
-        .cart-item:hover{border-color:rgba(212,175,55,.2)}
-        .qty-btn{width:28px;height:28px;border-radius:6px;border:1px solid rgba(212,175,55,.2);background:transparent;color:#D4AF37;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+
+        /* Cart Item */
+        .cart-item{display:flex;gap:12px;padding:12px;border-radius:12px;background:rgba(212,175,55,.03);border:1px solid rgba(212,175,55,.08);transition:all .3s}
+        .qty-btn{width:26px;height:26px;border-radius:6px;border:1px solid rgba(212,175,55,.2);background:transparent;color:#D4AF37;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
         .qty-btn:hover{background:rgba(212,175,55,.15)}
+
+        /* Scrollbar */
         ::-webkit-scrollbar{width:5px}
         ::-webkit-scrollbar-track{background:#0A0A0A}
         ::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#D4AF37,#B8941F);border-radius:4px}
-        @keyframes addedPop{0%{transform:scale(1)}50%{transform:scale(1.15)}100%{transform:scale(1)}}
-        .added-pop{animation:addedPop .3s ease}
     </style>
 </head>
 <body>
@@ -112,21 +173,18 @@
 
 <!-- Cart Panel -->
 <div id="cart-panel" class="cart-panel">
-    <div style="padding:20px 24px;border-bottom:1px solid rgba(212,175,55,.1);display:flex;align-items:center;justify-content:space-between">
-        <div style="display:flex;align-items:center;gap:10px">
-            <i class="fas fa-shopping-bag" style="color:#D4AF37;font-size:20px"></i>
-            <h3 style="font-family:'Amiri',serif;font-size:20px;color:#D4AF37;margin:0">سلة المشتريات</h3>
-        </div>
-        <button onclick="closeCart()" style="background:none;border:none;color:rgba(255,255,255,.5);font-size:22px;cursor:pointer;padding:4px;transition:color .3s" onmouseover="this.style.color='#D4AF37'" onmouseout="this.style.color='rgba(255,255,255,.5)'"><i class="fas fa-times"></i></button>
+    <div style="padding:18px 20px;border-bottom:1px solid rgba(212,175,55,.1);display:flex;align-items:center;justify-content:space-between">
+        <div style="display:flex;align-items:center;gap:10px"><i class="fas fa-shopping-bag" style="color:#D4AF37;font-size:18px"></i><h3 style="font-family:'Amiri',serif;font-size:18px;color:#D4AF37;margin:0">سلة المشتريات</h3></div>
+        <button onclick="closeCart()" style="background:none;border:none;color:rgba(255,255,255,.5);font-size:20px;cursor:pointer;transition:color .3s" onmouseover="this.style.color='#D4AF37'" onmouseout="this.style.color='rgba(255,255,255,.5)'"><i class="fas fa-times"></i></button>
     </div>
-    <div id="cart-items" style="flex:1;overflow-y:auto;padding:16px 24px"></div>
-    <div id="cart-footer" style="padding:20px 24px;border-top:1px solid rgba(212,175,55,.15)">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-            <span style="color:rgba(255,255,255,.6);font-size:15px">الإجمالي</span>
-            <span id="cart-total" style="font-size:24px;font-weight:700;color:#FFD700">0 ج.م</span>
+    <div id="cart-items" style="flex:1;overflow-y:auto;padding:14px 20px"></div>
+    <div id="cart-footer" style="padding:18px 20px;border-top:1px solid rgba(212,175,55,.15);display:none">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+            <span style="color:rgba(255,255,255,.6);font-size:14px">الإجمالي</span>
+            <span id="cart-total" style="font-size:22px;font-weight:700;color:#FFD700">0 ج.م</span>
         </div>
-        <button onclick="confirmOrder()" class="btn-gold" style="width:100%;justify-content:center;font-size:15px;padding:14px"><i class="fab fa-whatsapp" style="font-size:18px"></i> تأكيد الطلب عبر واتساب</button>
-        <button onclick="clearCart()" style="width:100%;margin-top:8px;padding:10px;border-radius:8px;border:1px solid rgba(239,68,68,.3);background:transparent;color:#ef4444;font-family:'Cairo',sans-serif;font-size:13px;cursor:pointer;transition:all .3s" onmouseover="this.style.background='rgba(239,68,68,.1)'" onmouseout="this.style.background='transparent'"><i class="fas fa-trash-alt" style="margin-left:6px"></i> إفراغ السلة</button>
+        <button onclick="confirmOrder()" class="btn-gold" style="width:100%;justify-content:center;font-size:14px;padding:13px"><i class="fab fa-whatsapp" style="font-size:17px"></i> تأكيد الطلب عبر واتساب</button>
+        <button onclick="clearCart()" style="width:100%;margin-top:8px;padding:9px;border-radius:8px;border:1px solid rgba(239,68,68,.3);background:transparent;color:#ef4444;font-family:'Cairo',sans-serif;font-size:12px;cursor:pointer;transition:all .3s" onmouseover="this.style.background='rgba(239,68,68,.1)'" onmouseout="this.style.background='transparent'"><i class="fas fa-trash-alt" style="margin-left:6px"></i> إفراغ السلة</button>
     </div>
 </div>
 
@@ -134,8 +192,8 @@
 <header id="navbar" style="position:fixed;top:0;left:0;right:0;z-index:80;transition:all .5s;background:transparent">
     <div style="max-width:1280px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between">
         <a href="#hero" style="text-decoration:none;display:flex;align-items:center;gap:10px">
-            <div style="width:40px;height:40px;border:2px solid #D4AF37;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(212,175,55,.1)"><svg viewBox="0 0 200 120" width="24" height="24" fill="none"><path d="M100 10 C60 10,20 50,10 60 C20 70,60 110,100 110 C140 110,180 70,190 60 C180 50,140 10,100 10Z" stroke="#D4AF37" stroke-width="4" fill="rgba(212,175,55,.2)"/><circle cx="100" cy="60" r="18" stroke="#D4AF37" stroke-width="3" fill="rgba(212,175,55,.15)"/><circle cx="100" cy="60" r="7" fill="#D4AF37"/></svg></div>
-            <div><div class="gold-text" style="font-family:'Amiri',serif;font-size:18px;font-weight:700;line-height:1">صالح للعطور</div><div style="font-size:9px;color:rgba(212,175,55,.5);letter-spacing:3px">SALEH PERFUMES</div></div>
+            <div style="width:38px;height:38px;border:2px solid #D4AF37;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(212,175,55,.1)"><svg viewBox="0 0 200 120" width="22" height="22" fill="none"><path d="M100 10 C60 10,20 50,10 60 C20 70,60 110,100 110 C140 110,180 70,190 60 C180 50,140 10,100 10Z" stroke="#D4AF37" stroke-width="4" fill="rgba(212,175,55,.2)"/><circle cx="100" cy="60" r="18" stroke="#D4AF37" stroke-width="3" fill="rgba(212,175,55,.15)"/><circle cx="100" cy="60" r="7" fill="#D4AF37"/></svg></div>
+            <div><div class="gold-text" style="font-family:'Amiri',serif;font-size:18px;font-weight:700;line-height:1">صالح للعطور</div><div style="font-size:8px;color:rgba(212,175,55,.5);letter-spacing:3px">SALEH PERFUMES</div></div>
         </a>
         <nav style="display:flex;align-items:center;gap:24px" class="hidden md:flex">
             <a href="#hero" style="text-decoration:none;color:#D4AF37;font-size:13px;font-weight:600">الرئيسية</a>
@@ -154,7 +212,7 @@
     <a href="#products" onclick="toggleMobileMenu()" style="text-decoration:none;color:rgba(255,255,255,.8);font-size:18px">المنتجات</a>
     <a href="#about" onclick="toggleMobileMenu()" style="text-decoration:none;color:rgba(255,255,255,.8);font-size:18px">من نحن</a>
     <a href="#social" onclick="toggleMobileMenu()" style="text-decoration:none;color:rgba(255,255,255,.8);font-size:18px">تابعنا</a>
-    <a href="#" onclick="openCart();toggleMobileMenu()" style="text-decoration:none;color:rgba(255,255,255,.8);font-size:18px"><i class="fas fa-shopping-bag" style="margin-left:8px;color:#D4AF37"></i> السلة</a>
+    <a href="#" onclick="openCart();toggleMobileMenu();return false" style="text-decoration:none;color:rgba(255,255,255,.8);font-size:18px"><i class="fas fa-shopping-bag" style="margin-left:8px;color:#D4AF37"></i> السلة</a>
 </div>
 
 <!-- HERO -->
@@ -180,9 +238,9 @@
         <div class="text-center reveal">
             <div class="section-ornament"><div class="ornament-line rev"></div><div class="ornament-diamond"></div><span style="color:rgba(212,175,55,.6);font-size:12px;letter-spacing:4px">تشكيلتنا</span><div class="ornament-diamond"></div><div class="ornament-line"></div></div>
             <h2 style="font-family:'Amiri',serif;font-size:clamp(24px,4vw,42px);font-weight:700;margin-bottom:8px"><span class="gold-text">عطور صالح الفاخرة</span></h2>
-            <p style="color:rgba(255,255,255,.5);font-size:15px">أكثر من 100 عطر أصلي — اختر وأضف لسلتك</p>
+            <p style="color:rgba(255,255,255,.5);font-size:15px">أكثر من 100 عطر — اختر وأضف لسلتك</p>
         </div>
-        <div class="reveal" style="margin-top:36px;display:flex;flex-direction:column;align-items:center;gap:18px">
+        <div class="reveal" style="margin-top:36px;display:flex;flex-direction:column;align-items:center;gap:16px">
             <div style="position:relative;width:100%;max-width:480px"><i class="fas fa-search" style="position:absolute;right:18px;top:50%;transform:translateY(-50%);color:rgba(212,175,55,.5)"></i><input type="text" id="search-input" class="search-bar" placeholder="ابحث عن اسم العطر..." style="padding-right:46px" oninput="renderProducts()"></div>
             <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center" id="filter-buttons">
                 <button class="filter-btn active" onclick="setFilter('all',this)">الكل</button>
@@ -204,10 +262,7 @@
     <div style="position:relative;z-index:1;max-width:1100px;margin:0 auto">
         <div style="display:flex;flex-wrap:wrap;align-items:center;gap:50px">
             <div class="reveal" style="flex:1;min-width:280px">
-                <div style="border-radius:20px;overflow:hidden;border:2px solid rgba(212,175,55,.12);position:relative">
-                    <img src="https://picsum.photos/seed/egypt-temple-gold/600/450" style="width:100%;height:360px;object-fit:cover;opacity:.45">
-                    <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,10,10,.7),rgba(212,175,55,.08))"></div>
-                </div>
+                <div style="border-radius:20px;overflow:hidden;border:2px solid rgba(212,175,55,.12)"><img src="https://picsum.photos/seed/egypt-temple-gold/600/450" style="width:100%;height:360px;object-fit:cover;opacity:.45"><div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,10,10,.7),rgba(212,175,55,.08))"></div></div>
             </div>
             <div class="reveal" style="flex:1;min-width:280px">
                 <div class="section-ornament" style="justify-content:flex-start"><div class="ornament-line rev"></div><span style="color:rgba(212,175,55,.6);font-size:12px;letter-spacing:4px">قصتنا</span></div>
@@ -231,7 +286,7 @@
         <div class="reveal">
             <div class="section-ornament"><div class="ornament-line rev"></div><div class="ornament-diamond"></div><span style="color:rgba(212,175,55,.6);font-size:12px;letter-spacing:4px">تواصل معنا</span><div class="ornament-diamond"></div><div class="ornament-line"></div></div>
             <h2 style="font-family:'Amiri',serif;font-size:clamp(24px,4vw,40px);font-weight:700;margin-bottom:8px"><span class="gold-text">تابع صالح للعطور</span></h2>
-            <p style="color:rgba(255,255,255,.5);font-size:14px;margin-bottom:36px">كن أول من يعرف أحدث العروض والتشكيلات</p>
+            <p style="color:rgba(255,255,255,.5);font-size:14px;margin-bottom:36px">كن أول من يعرف أحدث العروض</p>
         </div>
         <div class="reveal" style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
             <a href="https://www.facebook.com/share/187FMcJiQi/?mibextid=wwXIfr" target="_blank" class="social-icon" style="width:76px;height:76px;border-radius:18px;border:1px solid rgba(212,175,55,.15);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-decoration:none;background:rgba(212,175,55,.03)"><i class="fab fa-facebook-f" style="font-size:26px;color:#D4AF37"></i><span style="font-size:9px;color:rgba(255,255,255,.4)">Facebook</span></a>
@@ -250,26 +305,11 @@
     <div style="position:relative;z-index:1;max-width:1200px;margin:0 auto">
         <div style="display:flex;flex-wrap:wrap;gap:36px;justify-content:space-between;margin-bottom:28px">
             <div style="flex:1;min-width:200px">
-                <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-                    <div style="width:36px;height:36px;border:2px solid #D4AF37;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(212,175,55,.1)"><svg viewBox="0 0 200 120" width="22" height="22" fill="none"><path d="M100 10 C60 10,20 50,10 60 C20 70,60 110,100 110 C140 110,180 70,190 60 C180 50,140 10,100 10Z" stroke="#D4AF37" stroke-width="4" fill="rgba(212,175,55,.2)"/><circle cx="100" cy="60" r="18" stroke="#D4AF37" stroke-width="3" fill="rgba(212,175,55,.15)"/><circle cx="100" cy="60" r="7" fill="#D4AF37"/></svg></div>
-                    <div class="gold-text" style="font-family:'Amiri',serif;font-size:18px;font-weight:700">صالح للعطور</div>
-                </div>
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px"><div style="width:36px;height:36px;border:2px solid #D4AF37;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(212,175,55,.1)"><svg viewBox="0 0 200 120" width="22" height="22" fill="none"><path d="M100 10 C60 10,20 50,10 60 C20 70,60 110,100 110 C140 110,180 70,190 60 C180 50,140 10,100 10Z" stroke="#D4AF37" stroke-width="4" fill="rgba(212,175,55,.2)"/><circle cx="100" cy="60" r="18" stroke="#D4AF37" stroke-width="3" fill="rgba(212,175,55,.15)"/><circle cx="100" cy="60" r="7" fill="#D4AF37"/></svg></div><div class="gold-text" style="font-family:'Amiri',serif;font-size:18px;font-weight:700">صالح للعطور</div></div>
                 <p style="color:rgba(255,255,255,.3);font-size:12px;line-height:1.7;max-width:260px">صالح للعطور — الفخامة تبدأ من أول رشة</p>
             </div>
-            <div style="flex:1;min-width:160px">
-                <h4 style="color:#D4AF37;font-family:'Amiri',serif;font-size:15px;margin-bottom:10px">تواصل معنا</h4>
-                <a href="tel:+2001000017414" style="text-decoration:none;color:rgba(255,255,255,.4);font-size:12px;display:flex;align-items:center;gap:6px;margin-bottom:6px"><i class="fas fa-phone" style="color:#D4AF37;font-size:11px"></i> 01000017414</a>
-                <a href="https://wa.me/201000017414" target="_blank" style="text-decoration:none;color:rgba(255,255,255,.4);font-size:12px;display:flex;align-items:center;gap:6px"><i class="fab fa-whatsapp" style="color:#D4AF37;font-size:11px"></i> واتساب</a>
-            </div>
-            <div style="flex:1;min-width:160px">
-                <h4 style="color:#D4AF37;font-family:'Amiri',serif;font-size:15px;margin-bottom:10px">تابعنا</h4>
-                <div style="display:flex;gap:8px">
-                    <a href="https://www.facebook.com/share/187FMcJiQi/?mibextid=wwXIfr" target="_blank" class="social-icon" style="width:34px;height:34px;border-radius:50%;border:1px solid rgba(212,175,55,.2);display:flex;align-items:center;justify-content:center;color:#D4AF37;text-decoration:none;font-size:13px;background:transparent"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://www.instagram.com/saleh_perfumes" target="_blank" class="social-icon" style="width:34px;height:34px;border-radius:50%;border:1px solid rgba(212,175,55,.2);display:flex;align-items:center;justify-content:center;color:#D4AF37;text-decoration:none;font-size:13px;background:transparent"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.tiktok.com/@karamsalehkamel" target="_blank" class="social-icon" style="width:34px;height:34px;border-radius:50%;border:1px solid rgba(212,175,55,.2);display:flex;align-items:center;justify-content:center;color:#D4AF37;text-decoration:none;font-size:13px;background:transparent"><i class="fab fa-tiktok"></i></a>
-                    <a href="https://t.me/+rjo72_YTIutiMWZk" target="_blank" class="social-icon" style="width:34px;height:34px;border-radius:50%;border:1px solid rgba(212,175,55,.2);display:flex;align-items:center;justify-content:center;color:#D4AF37;text-decoration:none;font-size:13px;background:transparent"><i class="fab fa-telegram-plane"></i></a>
-                </div>
-            </div>
+            <div style="flex:1;min-width:160px"><h4 style="color:#D4AF37;font-family:'Amiri',serif;font-size:15px;margin-bottom:10px">تواصل معنا</h4><a href="tel:+2001000017414" style="text-decoration:none;color:rgba(255,255,255,.4);font-size:12px;display:flex;align-items:center;gap:6px;margin-bottom:6px"><i class="fas fa-phone" style="color:#D4AF37;font-size:11px"></i> 01000017414</a><a href="https://wa.me/201000017414" target="_blank" style="text-decoration:none;color:rgba(255,255,255,.4);font-size:12px;display:flex;align-items:center;gap:6px"><i class="fab fa-whatsapp" style="color:#D4AF37;font-size:11px"></i> واتساب</a></div>
+            <div style="flex:1;min-width:160px"><h4 style="color:#D4AF37;font-family:'Amiri',serif;font-size:15px;margin-bottom:10px">تابعنا</h4><div style="display:flex;gap:8px"><a href="https://www.facebook.com/share/187FMcJiQi/?mibextid=wwXIfr" target="_blank" class="social-icon" style="width:34px;height:34px;border-radius:50%;border:1px solid rgba(212,175,55,.2);display:flex;align-items:center;justify-content:center;color:#D4AF37;text-decoration:none;font-size:13px;background:transparent"><i class="fab fa-facebook-f"></i></a><a href="https://www.instagram.com/saleh_perfumes" target="_blank" class="social-icon" style="width:34px;height:34px;border-radius:50%;border:1px solid rgba(212,175,55,.2);display:flex;align-items:center;justify-content:center;color:#D4AF37;text-decoration:none;font-size:13px;background:transparent"><i class="fab fa-instagram"></i></a><a href="https://www.tiktok.com/@karamsalehkamel" target="_blank" class="social-icon" style="width:34px;height:34px;border-radius:50%;border:1px solid rgba(212,175,55,.2);display:flex;align-items:center;justify-content:center;color:#D4AF37;text-decoration:none;font-size:13px;background:transparent"><i class="fab fa-tiktok"></i></a><a href="https://t.me/+rjo72_YTIutiMWZk" target="_blank" class="social-icon" style="width:34px;height:34px;border-radius:50%;border:1px solid rgba(212,175,55,.2);display:flex;align-items:center;justify-content:center;color:#D4AF37;text-decoration:none;font-size:13px;background:transparent"><i class="fab fa-telegram-plane"></i></a></div></div>
         </div>
         <div style="text-align:center;border-top:1px solid rgba(212,175,55,.08);padding-top:18px"><p style="color:rgba(255,255,255,.2);font-size:11px">© 2025 صالح للعطور — الفخامة تبدأ من أول رشة 𓂀</p></div>
     </div>
@@ -281,78 +321,73 @@
 
 <script>
 // ====== DATA ======
-const CAT = {
-    niche: { name:'العطور النيش الفاخرة', nameEn:'Luxury Niche Collection', icon:'fa-crown',
+const CAT={
+    niche:{name:'العطور النيش الفاخرة',nameEn:'Luxury Niche Collection',icon:'fa-crown',
         prices:{'30ml':349,'50ml':549,'100ml':1049},
         colors:{body:'#C9A84C',bodyD:'#8B6914',liq:'#D4AF37',liqD:'#6B4F1D',cap:'#A0882C',capD:'#6B5A1E',accent:'#FFD700',glow:'rgba(212,175,55,.35)'},
-        items:['شيكولت ميكس','افتر نون سويم','الثائر من دي مارلي','بلاك افغانو','هيلين من قصة','سمر هامر','عود مركوجا','نيو كلاس من زيرجوف','ايربابورا من زيرجوف','سيمفوني من لويس فيتون','الكسندريا 2 من زيرجوف','فانيلا نكتار','مجيامير من اورتو باريسي','ناكسوس من زيرجوف','شيروسا من سول دي جانيرو','بكرات روج','انترلود من امواج','كراش ان مي','هيبيسكس من هيجادا','انجل شير من كليان','امبريال فالي من قصة','كريد افينتوس','نيشان هاشيفان','لايتون من دي مارلي','كاستيلا من قصة','روسيندو ماتيو 5','ايماجينيشن','سايد افيكت من انيشيو','باسيفيك شيل']
-    },
-    women: { name:'العطور الحريمي', nameEn:'Women Collection', icon:'fa-venus',
+        items:['شيكولت ميكس','افتر نون سويم','الثائر من دي مارلي','بلاك افغانو','هيلين من قصة','سمر هامر','عود مركوجا','نيو كلاس من زيرجوف','ايربابورا من زيرجوف','سيمفوني من لويس فيتون','الكسندريا 2 من زيرجوف','فانيلا نكتار','مجيامير من اورتو باريسي','ناكسوس من زيرجوف','شيروسا من سول دي جانيرو','بكرات روج','انترلود من امواج','كراش ان مي','هيبيسكس من هيجادا','انجل شير من كليان','امبريال فالي من قصة','كريد افينتوس','نيشان هاشيفان','لايتون من دي مارلي','كاستيلا من قصة','روسيندو ماتيو 5','ايماجينيشن','سايد افيكت من انيشيو','باسيفيك شيل']},
+    women:{name:'العطور الحريمي',nameEn:'Women Collection',icon:'fa-venus',
         prices:{'30ml':249,'50ml':349,'100ml':649},
         colors:{body:'#C77DAA',bodyD:'#8B3A62',liq:'#E8A0C8',liqD:'#9E4F7A',cap:'#A65D8A',capD:'#6B2D52',accent:'#F0B8D8',glow:'rgba(199,125,170,.35)'},
-        items:['برازليان كراش','كوكو مدموزيل شانيل','جورجينا سينس من لافيرن','كوكو فانيليا','يارا كاندي من لطافة','لافي بيل','اوليمبيا','اسكندل حريمي','برادا بارادوكس','بربري هير','فانيليا باودر','جود جيرل','يارا لطافة','رالف لورين','اميرة العرب','جوتشي جيلتي','فانيليا فاتال']
-    },
-    men: { name:'العطور الديزاينر الرجالي', nameEn:'Designer Men Collection', icon:'fa-mars',
+        items:['برازليان كراش','كوكو مدموزيل شانيل','جورجينا سينس من لافيرن','كوكو فانيليا','يارا كاندي من لطافة','لافي بيل','اوليمبيا','اسكندل حريمي','برادا بارادوكس','بربري هير','فانيليا باودر','جود جيرل','يارا لطافة','رالف لورين','اميرة العرب','جوتشي جيلتي','فانيليا فاتال']},
+    men:{name:'العطور الديزاينر الرجالي',nameEn:'Designer Men Collection',icon:'fa-mars',
         prices:{'30ml':249,'50ml':349,'100ml':699},
         colors:{body:'#4A6FA5',bodyD:'#1A3A5C',liq:'#5C84BD',liqD:'#2A4F7A',cap:'#3A5A8A',capD:'#1A2F4F',accent:'#7EA8D4',glow:'rgba(74,111,165,.35)'},
-        items:['زارا مان','فلانتينو بورن ان روما','كول ووتر بلو','سوفاج','وان مليون لاكي','وان مليون من باكو رابن','عمرو دياب','هوجو بوس','انفكتوس','انفكتوس اليكسير','فوياج','اكوا دي جيو','بلاك ليكزس','لو مال لو برفيوم من جان بول','كريد سيلفر','كينج','جورج قرداحي','تومي هيل','فرزاتشي ايروس','باد بوي','واي من ايف سان لوران','دانهل ديزاير بلو','هاج سينت','سيلفر سنت','اسكندر باي نايت','212 سكسي','بلو شانيل','مونت بلانك بلو','لاكوست وايت','لاكوست اسينشال','BMW','بلاك اوبيوم','بلاك XS','شاليمار رجالي','شامبيون','كنزو مان','كاريزما','ازارو ذا موست وانتد','CK1']
-    },
-    oriental: { name:'العطور الشرقية', nameEn:'Oriental Collection', icon:'fa-star-and-crescent',
+        items:['زارا مان','فلانتينو بورن ان روما','كول ووتر بلو','سوفاج','وان مليون لاكي','وان مليون من باكو رابن','عمرو دياب','هوجو بوس','انفكتوس','انفكتوس اليكسير','فوياج','اكوا دي جيو','بلاك ليكزس','لو مال لو برفيوم من جان بول','كريد سيلفر','كينج','جورج قرداحي','تومي هيل','فرزاتشي ايروس','باد بوي','واي من ايف سان لوران','دانهل ديزاير بلو','هاج سينت','سيلفر سنت','اسكندر باي نايت','212 سكسي','بلو شانيل','مونت بلانك بلو','لاكوست وايت','لاكوست اسينشال','BMW','بلاك اوبيوم','بلاك XS','شاليمار رجالي','شامبيون','كنزو مان','كاريزما','ازارو ذا موست وانتد','CK1']},
+    oriental:{name:'العطور الشرقية',nameEn:'Oriental Collection',icon:'fa-star-and-crescent',
         prices:{'30ml':299,'50ml':449,'100ml':849},
         colors:{body:'#B87333',bodyD:'#6B3F1D',liq:'#D4944A',liqD:'#7A4A20',cap:'#9A6028',capD:'#5A3218',accent:'#E8A860',glow:'rgba(184,115,51,.35)'},
-        items:['غبار الذهب','خمرة دخان','خمرة قهوة','خمرة لطافة','الترامال','9PM','عود كلمات','مانسيرا روز فانيليا','استرونجر وذ يو انتنسلي','عفيف من لطافة','نبراس من لطافة','مضاوي جولد','مضاوي','جنتل مان اكستريم','لالونا من قصة','سافا من قصة','أموري كافيه','ماجيك الجزيرة','أمير العود','توباكو فانيلا','شهرة من الرصاصي','بديع العود','وصال من العربية للعود']
-    },
-    musk: { name:'المسكات', nameEn:'Musk Collection', icon:'fa-droplet',
+        items:['غبار الذهب','خمرة دخان','خمرة قهوة','خمرة لطافة','الترامال','9PM','عود كلمات','مانسيرا روز فانيليا','استرونجر وذ يو انتنسلي','عفيف من لطافة','نبراس من لطافة','مضاوي جولد','مضاوي','جنتل مان اكستريم','لالونا من قصة','سافا من قصة','أموري كافيه','ماجيك الجزيرة','أمير العود','توباكو فانيلا','شهرة من الرصاصي','بديع العود','وصال من العربية للعود']},
+    musk:{name:'المسكات',nameEn:'Musk Collection',icon:'fa-droplet',
         prices:{'30ml':149,'50ml':199,'100ml':299},
         colors:{body:'#A8B89C',bodyD:'#5A6B50',liq:'#C8D8BC',liqD:'#7A8A70',cap:'#8A9A80',capD:'#4A5A40',accent:'#D0E0C4',glow:'rgba(168,184,156,.35)'},
-        items:['مسك تفاح','مسك فراولة','مسك أناناس','مسك توت','مسك رمان','مسك غزل البنات']
-    }
+        items:['مسك تفاح','مسك فراولة','مسك أناناس','مسك توت','مسك رمان','مسك غزل البنات']}
 };
 
-let currentFilter = 'all';
-let selectedSizes = {};
-let cart = [];
+let currentFilter='all';
+let selectedSizes={};
+let cart=[];
 
 // ====== BOTTLE SVG ======
-function bottleSVG(catId, idx) {
-    const c = CAT[catId].colors, u = catId + idx;
-    return `<svg viewBox="0 0 100 180" style="width:100%;max-width:100px;display:block;margin:0 auto">
-        <defs>
-            <linearGradient id="bg${u}" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="${c.body}"/><stop offset="100%" stop-color="${c.bodyD}"/></linearGradient>
-            <linearGradient id="lq${u}" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="${c.liq}"/><stop offset="100%" stop-color="${c.liqD}"/></linearGradient>
-            <linearGradient id="cp${u}" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="${c.cap}"/><stop offset="100%" stop-color="${c.capD}"/></linearGradient>
-        </defs>
-        <ellipse cx="50" cy="105" rx="32" ry="55" fill="${c.glow}" opacity=".1"/>
-        <rect x="38" y="8" width="24" height="18" rx="3" fill="url(#cp${u})"/>
-        <rect x="36" y="24" width="28" height="4" rx="1" fill="${c.accent}" opacity=".5"/>
-        <rect x="43" y="28" width="14" height="22" rx="2" fill="url(#bg${u})" opacity=".9"/>
-        <path d="M43 50Q43 46 35 48L25 53 25 56 75 56 75 53 65 48Q57 46 57 50Z" fill="url(#bg${u})" opacity=".8"/>
-        <rect x="25" y="53" width="50" height="107" rx="4" fill="url(#bg${u})"/>
-        <rect x="25" y="53" width="50" height="3" rx="1" fill="${c.accent}" opacity=".45"/>
-        <rect x="25" y="157" width="50" height="3" rx="1" fill="${c.accent}" opacity=".25"/>
-        <rect x="30" y="70" width="40" height="84" rx="2" fill="url(#lq${u})" opacity=".35"/>
-        <rect x="33" y="90" width="34" height="36" rx="2" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.1)" stroke-width=".5"/>
-        <line x1="37" y1="102" x2="63" y2="102" stroke="rgba(255,255,255,.12)" stroke-width=".5"/>
-        <line x1="37" y1="109" x2="57" y2="109" stroke="rgba(255,255,255,.08)" stroke-width=".5"/>
-        <line x1="37" y1="116" x2="50" y2="116" stroke="rgba(255,255,255,.06)" stroke-width=".5"/>
-        <rect x="33" y="60" width="3" height="42" rx="1.5" fill="rgba(255,255,255,.08)"/>
-        <rect x="38" y="63" width="1.5" height="28" rx=".75" fill="rgba(255,255,255,.04)"/>
-        <ellipse cx="50" cy="163" rx="18" ry="2" fill="${c.glow}" opacity=".15"/>
+function bottleSVG(catId,idx){
+    const c=CAT[catId].colors,u=catId+idx;
+    return`<svg viewBox="0 0 100 180" style="width:100%;max-width:100px;display:block;margin:0 auto">
+    <defs>
+        <linearGradient id="bg${u}" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="${c.body}"/><stop offset="100%" stop-color="${c.bodyD}"/></linearGradient>
+        <linearGradient id="lq${u}" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="${c.liq}"/><stop offset="100%" stop-color="${c.liqD}"/></linearGradient>
+        <linearGradient id="cp${u}" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="${c.cap}"/><stop offset="100%" stop-color="${c.capD}"/></linearGradient>
+    </defs>
+    <ellipse cx="50" cy="105" rx="32" ry="55" fill="${c.glow}" opacity=".08"/>
+    <rect x="38" y="8" width="24" height="18" rx="3" fill="url(#cp${u})"/>
+    <rect x="36" y="24" width="28" height="4" rx="1" fill="${c.accent}" opacity=".5"/>
+    <rect x="43" y="28" width="14" height="22" rx="2" fill="url(#bg${u})" opacity=".9"/>
+    <path d="M43 50Q43 46 35 48L25 53 25 56 75 56 75 53 65 48Q57 46 57 50Z" fill="url(#bg${u})" opacity=".8"/>
+    <rect x="25" y="53" width="50" height="107" rx="4" fill="url(#bg${u})"/>
+    <rect x="25" y="53" width="50" height="3" rx="1" fill="${c.accent}" opacity=".45"/>
+    <rect x="25" y="157" width="50" height="3" rx="1" fill="${c.accent}" opacity=".25"/>
+    <rect x="30" y="70" width="40" height="84" rx="2" fill="url(#lq${u})" opacity=".35"/>
+    <rect x="33" y="90" width="34" height="36" rx="2" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.1)" stroke-width=".5"/>
+    <line x1="37" y1="102" x2="63" y2="102" stroke="rgba(255,255,255,.12)" stroke-width=".5"/>
+    <line x1="37" y1="109" x2="57" y2="109" stroke="rgba(255,255,255,.08)" stroke-width=".5"/>
+    <line x1="37" y1="116" x2="50" y2="116" stroke="rgba(255,255,255,.06)" stroke-width=".5"/>
+    <rect x="33" y="60" width="3" height="42" rx="1.5" fill="rgba(255,255,255,.08)"/>
+    <rect x="38" y="63" width="1.5" height="28" rx=".75" fill="rgba(255,255,255,.04)"/>
+    <ellipse cx="50" cy="163" rx="18" ry="2" fill="${c.glow}" opacity=".12"/>
     </svg>`;
 }
 
-// ====== RENDER PRODUCTS ======
-function renderProducts() {
-    const container = document.getElementById('products-container');
-    const search = document.getElementById('search-input').value.trim().toLowerCase();
-    let html = '', hasResults = false;
-    const cats = currentFilter === 'all' ? Object.keys(CAT) : [currentFilter];
-    cats.forEach(catId => {
-        const cat = CAT[catId];
-        const items = cat.items.filter(i => i.toLowerCase().includes(search));
-        if (!items.length) return;
-        hasResults = true;
-        html += `<div style="margin-bottom:50px">
+// ====== RENDER ======
+function renderProducts(){
+    const container=document.getElementById('products-container');
+    const search=document.getElementById('search-input').value.trim().toLowerCase();
+    let html='',hasResults=false;
+    const cats=currentFilter==='all'?Object.keys(CAT):[currentFilter];
+    cats.forEach(catId=>{
+        const cat=CAT[catId];
+        const items=cat.items.filter(i=>i.toLowerCase().includes(search));
+        if(!items.length)return;
+        hasResults=true;
+        html+=`<div style="margin-bottom:50px">
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
                 <div style="display:flex;align-items:center;gap:10px">
                     <div style="width:38px;height:38px;border-radius:10px;background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.15);display:flex;align-items:center;justify-content:center"><i class="fas ${cat.icon}" style="color:${cat.colors.accent};font-size:16px"></i></div>
@@ -364,192 +399,141 @@ function renderProducts() {
                     <span class="cat-badge" style="border-color:${cat.colors.accent}33;color:${cat.colors.accent}">100ml = ${cat.prices['100ml']} ج</span>
                 </div>
             </div>
-            <div class="slider-container" id="slider-${catId}">
-                <button class="slider-btn slider-btn-prev" onclick="slide('${catId}',-1)"><i class="fas fa-chevron-right"></i></button>
-                <div class="slider-track" id="track-${catId}">
-                    ${items.map((item, idx) => {
-                        const k = catId+'-'+idx;
-                        if (!selectedSizes[k]) selectedSizes[k] = '50ml';
-                        const sz = selectedSizes[k], price = cat.prices[sz];
-                        return `<div class="product-card" style="min-width:220px;max-width:220px">
-                            <div class="card-glow"></div>
-                            <div style="padding:20px 16px 10px;text-align:center;background:linear-gradient(180deg,${cat.colors.glow.replace('.35','.06')},transparent)">
-                                ${bottleSVG(catId, idx)}
-                            </div>
-                            <div style="padding:4px 14px 14px">
-                                <h4 style="font-family:'Amiri',serif;font-size:14px;color:${cat.colors.accent};margin:0 0 8px;line-height:1.3;min-height:36px">${item}</h4>
-                                <div style="display:flex;gap:4px;margin-bottom:10px">
-                                    ${['30ml','50ml','100ml'].map(s=>`<button class="size-btn ${sz===s?'active':''}" onclick="pickSize('${k}','${s}',${cat.prices[s]},this)" style="${sz===s?'border-color:'+cat.colors.accent+';color:'+cat.colors.accent:''}">${s}</button>`).join('')}
+            <div class="slider-wrapper">
+                <button class="slider-btn slider-btn-prev" onclick="slideCat('${catId}',-1)"><i class="fas fa-chevron-right"></i></button>
+                <div class="slider-scroll" id="scroll-${catId}">
+                    <div class="slider-track">
+                        ${items.map((item,idx)=>{
+                            const k=catId+'-'+idx;
+                            if(!selectedSizes[k])selectedSizes[k]='50ml';
+                            const sz=selectedSizes[k],price=cat.prices[sz];
+                            return`<div class="product-card">
+                                <div class="card-glow"></div>
+                                <div style="padding:18px 14px 8px;text-align:center;background:linear-gradient(180deg,${cat.colors.glow.replace('.35','.06')},transparent)">
+                                    ${bottleSVG(catId,idx)}
                                 </div>
-                                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-                                    <span id="p-${k}" style="font-size:20px;font-weight:700;color:${cat.colors.accent}">${price} <span style="font-size:11px">ج.م</span></span>
+                                <div style="padding:4px 12px 12px">
+                                    <h4 style="font-family:'Amiri',serif;font-size:13px;color:${cat.colors.accent};margin:0 0 8px;line-height:1.3;min-height:34px">${item}</h4>
+                                    <div style="display:flex;gap:4px;margin-bottom:8px">
+                                        ${['30ml','50ml','100ml'].map(s=>`<button class="size-btn ${sz===s?'active':''}" onclick="pickSize('${k}','${s}',${cat.prices[s]},this)">${s}</button>`).join('')}
+                                    </div>
+                                    <div style="margin-bottom:8px"><span id="p-${k}" style="font-size:19px;font-weight:700;color:${cat.colors.accent}">${price} <span style="font-size:11px">ج.م</span></span></div>
+                                    <button onclick="addToCart('${item.replace(/'/g,"\\'")}','${catId}','${sz}',${price})" style="width:100%;padding:8px;border-radius:8px;border:1px solid ${cat.colors.accent}40;background:${cat.colors.accent}12;color:${cat.colors.accent};font-family:'Cairo',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center;gap:6px" onmouseover="this.style.background='${cat.colors.accent}28'" onmouseout="this.style.background='${cat.colors.accent}12'"><i class="fas fa-cart-plus"></i> أضف للسلة</button>
                                 </div>
-                                <button onclick="addToCart('${item.replace(/'/g,"\\'")}','${catId}','${sz}',${price})" style="width:100%;padding:9px;border-radius:8px;border:1px solid ${cat.colors.accent}40;background:${cat.colors.accent}15;color:${cat.colors.accent};font-family:'Cairo',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center;gap:6px" onmouseover="this.style.background='${cat.colors.accent}30';this.style.borderColor='${cat.colors.accent}'" onmouseout="this.style.background='${cat.colors.accent}15';this.style.borderColor='${cat.colors.accent}40'">
-                                    <i class="fas fa-cart-plus"></i> أضف للسلة
-                                </button>
-                            </div>
-                        </div>`;
-                    }).join('')}
+                            </div>`;
+                        }).join('')}
+                    </div>
                 </div>
-                <button class="slider-btn slider-btn-next" onclick="slide('${catId}',1)"><i class="fas fa-chevron-left"></i></button>
+                <button class="slider-btn slider-btn-next" onclick="slideCat('${catId}',1)"><i class="fas fa-chevron-left"></i></button>
             </div>
         </div>`;
     });
-    container.innerHTML = html;
-    document.getElementById('no-results').style.display = hasResults ? 'none' : 'block';
+    container.innerHTML=html;
+    document.getElementById('no-results').style.display=hasResults?'none':'block';
+}
+
+// ====== ★ FIXED SLIDER NAVIGATION ★ ======
+function slideCat(catId, direction) {
+    const el = document.getElementById('scroll-' + catId);
+    if (!el) return;
+    // width of one card + gap
+    const cardWidth = window.innerWidth <= 640 ? 206 : 244;
+    // In RTL: scrollBy with positive left scrolls to previous (right),
+    // negative left scrolls to next (left) — but scrollBy handles RTL automatically
+    // We just need to scroll in the correct visual direction:
+    // direction = 1  → next (show items to the left in RTL)
+    // direction = -1 → prev (show items to the right in RTL)
+    el.scrollBy({ left: direction * cardWidth, behavior: 'smooth' });
 }
 
 // ====== SIZE PICKER ======
-function pickSize(k, s, price, btn) {
-    selectedSizes[k] = s;
-    const el = document.getElementById('p-'+k);
-    if (el) el.innerHTML = price + ' <span style="font-size:11px">ج.م</span>';
-    btn.parentElement.querySelectorAll('.size-btn').forEach(b=>{b.classList.remove('active');b.style.borderColor='';b.style.color=''});
+function pickSize(k,s,price,btn){
+    selectedSizes[k]=s;
+    const el=document.getElementById('p-'+k);
+    if(el)el.innerHTML=price+' <span style="font-size:11px">ج.م</span>';
+    btn.parentElement.querySelectorAll('.size-btn').forEach(b=>b.classList.remove('active'));
     btn.classList.add('active');
-    const accent = btn.closest('.product-card').querySelector('h4').style.color;
-    btn.style.borderColor = accent; btn.style.color = accent;
 }
 
 // ====== CART ======
-function addToCart(name, catId, size, price) {
-    const existing = cart.find(i => i.name === name && i.size === size);
-    if (existing) { existing.quantity++; }
-    else { cart.push({ name, catId, size, price, quantity: 1 }); }
+function addToCart(name,catId,size,price){
+    const existing=cart.find(i=>i.name===name&&i.size===size);
+    if(existing){existing.quantity++}else{cart.push({name,catId,size,price,quantity:1})}
     updateCartUI();
     showToast(`تمت إضافة "${name}" للسلة ✓`);
-    // Badge bump
-    const badge = document.getElementById('cart-badge');
-    badge.classList.remove('bump'); void badge.offsetWidth; badge.classList.add('bump');
+    const badge=document.getElementById('cart-badge');
+    badge.classList.remove('bump');void badge.offsetWidth;badge.classList.add('bump');
 }
+function removeFromCart(idx){cart.splice(idx,1);updateCartUI()}
+function changeQty(idx,d){cart[idx].quantity+=d;if(cart[idx].quantity<1)cart.splice(idx,1);updateCartUI()}
+function clearCart(){cart=[];updateCartUI();showToast('تم إفراغ السلة')}
 
-function removeFromCart(idx) { cart.splice(idx, 1); updateCartUI(); }
-function changeQty(idx, d) {
-    cart[idx].quantity += d;
-    if (cart[idx].quantity < 1) cart.splice(idx, 1);
-    updateCartUI();
-}
-function clearCart() { cart = []; updateCartUI(); showToast('تم إفراغ السلة'); }
-
-function updateCartUI() {
-    const badge = document.getElementById('cart-badge');
-    const totalItems = cart.reduce((s,i)=>s+i.quantity,0);
-    badge.textContent = totalItems;
-    badge.style.display = totalItems > 0 ? 'flex' : 'none';
-
-    const container = document.getElementById('cart-items');
-    const footer = document.getElementById('cart-footer');
-    if (!cart.length) {
-        container.innerHTML = `<div style="text-align:center;padding:60px 20px"><i class="fas fa-shopping-bag" style="font-size:48px;color:rgba(212,175,55,.15);margin-bottom:16px;display:block"></i><p style="color:rgba(255,255,255,.35);font-size:16px">السلة فارغة</p><p style="color:rgba(255,255,255,.2);font-size:13px;margin-top:4px">أضف منتجات للبدء</p></div>`;
-        footer.style.display = 'none';
-        return;
+function updateCartUI(){
+    const badge=document.getElementById('cart-badge');
+    const totalItems=cart.reduce((s,i)=>s+i.quantity,0);
+    badge.textContent=totalItems;badge.style.display=totalItems>0?'flex':'none';
+    const container=document.getElementById('cart-items');
+    const footer=document.getElementById('cart-footer');
+    if(!cart.length){
+        container.innerHTML=`<div style="text-align:center;padding:50px 20px"><i class="fas fa-shopping-bag" style="font-size:44px;color:rgba(212,175,55,.12);margin-bottom:14px;display:block"></i><p style="color:rgba(255,255,255,.3);font-size:15px">السلة فارغة</p></div>`;
+        footer.style.display='none';return;
     }
-    footer.style.display = 'block';
-    let total = 0;
-    container.innerHTML = cart.map((item, idx) => {
-        const c = CAT[item.catId].colors;
-        const subtotal = item.price * item.quantity;
-        total += subtotal;
-        return `<div class="cart-item" style="margin-bottom:10px;border-color:${c.accent}15">
-            <div style="width:42px;height:42px;border-radius:10px;background:${c.accent}12;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-                <i class="fas fa-flask" style="color:${c.accent};font-size:16px"></i>
-            </div>
+    footer.style.display='block';
+    let total=0;
+    container.innerHTML=cart.map((item,idx)=>{
+        const c=CAT[item.catId].colors;const sub=item.price*item.quantity;total+=sub;
+        return`<div class="cart-item" style="margin-bottom:8px">
+            <div style="width:38px;height:38px;border-radius:8px;background:${c.accent}12;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="fas fa-flask" style="color:${c.accent};font-size:14px"></i></div>
             <div style="flex:1;min-width:0">
-                <div style="display:flex;justify-content:space-between;align-items:start;gap:6px">
-                    <h4 style="font-size:13px;color:${c.accent};margin:0;line-height:1.3;flex:1">${item.name}</h4>
-                    <button onclick="removeFromCart(${idx})" style="background:none;border:none;color:rgba(255,255,255,.25);cursor:pointer;font-size:12px;padding:2px;transition:color .2s;flex-shrink:0" onmouseover="this.style.color='#ef4444'" onmouseout="this.style.color='rgba(255,255,255,.25)'"><i class="fas fa-times"></i></button>
+                <div style="display:flex;justify-content:space-between;align-items:start;gap:4px">
+                    <h4 style="font-size:12px;color:${c.accent};margin:0;line-height:1.3;flex:1">${item.name}</h4>
+                    <button onclick="removeFromCart(${idx})" style="background:none;border:none;color:rgba(255,255,255,.2);cursor:pointer;font-size:11px" onmouseover="this.style.color='#ef4444'" onmouseout="this.style.color='rgba(255,255,255,.2)'"><i class="fas fa-times"></i></button>
                 </div>
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">
-                    <div style="display:flex;align-items:center;gap:6px">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-top:5px">
+                    <div style="display:flex;align-items:center;gap:5px">
                         <button class="qty-btn" onclick="changeQty(${idx},-1)">-</button>
-                        <span style="font-size:13px;min-width:20px;text-align:center">${item.quantity}</span>
+                        <span style="font-size:12px;min-width:18px;text-align:center">${item.quantity}</span>
                         <button class="qty-btn" onclick="changeQty(${idx},1)">+</button>
-                        <span style="font-size:11px;color:rgba(255,255,255,.3);margin-right:4px">${item.size}</span>
+                        <span style="font-size:10px;color:rgba(255,255,255,.25);margin-right:3px">${item.size}</span>
                     </div>
-                    <span style="font-size:14px;font-weight:700;color:${c.accent}">${subtotal} ج</span>
+                    <span style="font-size:13px;font-weight:700;color:${c.accent}">${sub} ج</span>
                 </div>
             </div>
         </div>`;
     }).join('');
-    document.getElementById('cart-total').innerHTML = total + ' <span style="font-size:13px">ج.م</span>';
+    document.getElementById('cart-total').innerHTML=total+' <span style="font-size:12px">ج.م</span>';
 }
 
-function openCart() {
-    document.getElementById('cart-panel').classList.add('open');
-    document.getElementById('cart-overlay').classList.add('open');
-    document.body.style.overflow = 'hidden';
-}
-function closeCart() {
-    document.getElementById('cart-panel').classList.remove('open');
-    document.getElementById('cart-overlay').classList.remove('open');
-    document.body.style.overflow = 'auto';
-}
+function openCart(){document.getElementById('cart-panel').classList.add('open');document.getElementById('cart-overlay').classList.add('open');document.body.style.overflow='hidden'}
+function closeCart(){document.getElementById('cart-panel').classList.remove('open');document.getElementById('cart-overlay').classList.remove('open');document.body.style.overflow='auto'}
 
-function confirmOrder() {
-    if (!cart.length) return;
-    let msg = 'السلام عليكم، أريد طلب من صالح للعطور:\n━━━━━━━━━━━\n';
-    let total = 0;
-    cart.forEach((item, i) => {
-        const sub = item.price * item.quantity;
-        total += sub;
-        msg += `${i+1}. ${item.name}\n   الحجم: ${item.size} | الكمية: ${item.quantity} | السعر: ${sub} ج.م\n`;
-    });
-    msg += `━━━━━━━━━━━\nالإجمالي: ${total} ج.م\n\nالاسم: \nالعنوان: `;
-    window.open('https://wa.me/201000017414?text=' + encodeURIComponent(msg), '_blank');
+function confirmOrder(){
+    if(!cart.length)return;
+    let msg='السلام عليكم، أريد طلب من صالح للعطور:\n━━━━━━━━━━━\n';
+    let total=0;
+    cart.forEach((item,i)=>{const sub=item.price*item.quantity;total+=sub;msg+=`${i+1}. ${item.name}\n   الحجم: ${item.size} | الكمية: ${item.quantity} | السعر: ${sub} ج.م\n`});
+    msg+=`━━━━━━━━━━━\nالإجمالي: ${total} ج.م\n\nالاسم: \nالعنوان: `;
+    window.open('https://wa.me/201000017414?text='+encodeURIComponent(msg),'_blank');
     showToast('تم تحويل طلبك إلى واتساب ✓');
 }
 
-// ====== SLIDER ======
-const slidePos = {};
-function slide(catId, dir) {
-    const track = document.getElementById('track-'+catId);
-    if (!track) return;
-    const step = 248;
-    const maxS = Math.max(0, track.scrollWidth - track.parentElement.offsetWidth);
-    if (!slidePos[catId]) slidePos[catId] = 0;
-    slidePos[catId] += dir * -step;
-    slidePos[catId] = Math.max(-maxS, Math.min(0, slidePos[catId]));
-    track.style.transform = `translateX(${slidePos[catId]}px)`;
-}
-
-// Touch slider
-let touchX = 0;
-document.addEventListener('touchstart', e => { if (e.target.closest('.slider-container')) touchX = e.touches[0].clientX; }, {passive:true});
-document.addEventListener('touchmove', e => {
-    if (!e.target.closest('.slider-container')) return;
-    const diff = touchX - e.touches[0].clientX;
-    if (Math.abs(diff) > 50) {
-        const cid = e.target.closest('.slider-container').id.replace('slider-','');
-        slide(cid, diff > 0 ? 1 : -1);
-        touchX = e.touches[0].clientX;
-    }
-}, {passive:true});
-
 // ====== FILTER ======
-function setFilter(f, btn) {
-    currentFilter = f;
+function setFilter(f,btn){
+    currentFilter=f;
     document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
     btn.classList.add('active');
-    slidePos[f] = 0;
     renderProducts();
 }
 
 // ====== TOAST ======
-function showToast(msg) {
-    const t = document.getElementById('toast');
-    t.textContent = msg; t.classList.add('show');
-    setTimeout(()=>t.classList.remove('show'), 2500);
-}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500)}
 
 // ====== LOADING ======
-window.addEventListener('load', () => {
-    setTimeout(()=>{ document.getElementById('loading-screen').classList.add('hidden'); document.body.style.overflow='auto'; }, 2800);
-});
+window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('loading-screen').classList.add('hidden');document.body.style.overflow='auto'},2800)});
 
 // ====== PARTICLES ======
-const cvs = document.getElementById('particles-canvas'), cx = cvs.getContext('2d');
-let pts = [];
-function rc(){cvs.width=innerWidth;cvs.height=innerHeight}
-rc(); addEventListener('resize',rc);
+const cvs=document.getElementById('particles-canvas'),cx=cvs.getContext('2d');let pts=[];
+function rc(){cvs.width=innerWidth;cvs.height=innerHeight}rc();addEventListener('resize',rc);
 class P{constructor(){this.reset()}reset(){this.x=Math.random()*cvs.width;this.y=Math.random()*cvs.height;this.s=Math.random()*2+.5;this.sx=(Math.random()-.5)*.3;this.sy=-Math.random()*.3-.1;this.o=Math.random()*.3+.1;this.fs=Math.random()*.004+.002;this.g=Math.random()>.5}update(){this.x+=this.sx;this.y+=this.sy;if(this.g){this.o+=this.fs;if(this.o>=.5)this.g=false}else{this.o-=this.fs;if(this.o<=.05)this.reset()}if(this.y<-10)this.reset()}draw(){cx.beginPath();cx.arc(this.x,this.y,this.s,0,Math.PI*2);cx.fillStyle=`rgba(212,175,55,${this.o})`;cx.fill();cx.beginPath();cx.arc(this.x,this.y,this.s*3,0,Math.PI*2);cx.fillStyle=`rgba(212,175,55,${this.o*.12})`;cx.fill()}}
 for(let i=0;i<45;i++)pts.push(new P());
 (function ap(){cx.clearRect(0,0,cvs.width,cvs.height);pts.forEach(p=>{p.update();p.draw()});requestAnimationFrame(ap)})();
