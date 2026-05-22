@@ -1,950 +1,577 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>صالح للعطور - الفخامة تبدأ من أول رشة</title>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<style>
-*{margin:0;padding:0;box-sizing:border-box;}
-:root{
-  --gold:#D4AF37;--gold2:#FFD700;--gold3:#B8941F;--gold4:#f0d060;
-  --dark:#0A0A0A;--dark2:#111111;--dark3:#1a1508;
-}
-html{scroll-behavior:smooth;}
-body{font-family:'Cairo',sans-serif;background:var(--dark);color:#fff;overflow-x:hidden;}
-::-webkit-scrollbar{width:6px;}
-::-webkit-scrollbar-track{background:var(--dark);}
-::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--gold),var(--gold3));border-radius:3px;}
-
-/* ====== LOADING ====== */
-#ls{position:fixed;inset:0;z-index:9999;background:var(--dark);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .8s,visibility .8s;}
-#ls.out{opacity:0;visibility:hidden;}
-.ls-eye{font-size:64px;animation:eyePulse 2s ease-in-out infinite;}
-@keyframes eyePulse{0%,100%{filter:drop-shadow(0 0 20px rgba(212,175,55,.8));opacity:1;}50%{filter:drop-shadow(0 0 50px #FFD700);opacity:.7;}}
-.ls-bar{margin-top:30px;width:220px;height:3px;background:rgba(212,175,55,.15);border-radius:2px;overflow:hidden;}
-.ls-bar-fill{height:100%;width:0;background:linear-gradient(90deg,var(--gold3),var(--gold2));animation:lbar 2.6s ease-in-out forwards;}
-@keyframes lbar{0%{width:0;}100%{width:100%;}}
-.ls-txt{margin-top:18px;font-family:'Amiri',serif;font-size:22px;color:var(--gold);animation:fade 1.4s ease-in-out infinite;}
-@keyframes fade{0%,100%{opacity:.4;}50%{opacity:1;}}
-
-/* ====== PARTICLES ====== */
-#pc{position:fixed;inset:0;z-index:1;pointer-events:none;}
-
-/* ====== NAVBAR ====== */
-#nav{position:fixed;top:0;left:0;right:0;z-index:80;transition:all .5s;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;}
-#nav.scrolled{background:rgba(10,10,10,.96);backdrop-filter:blur(18px);box-shadow:0 4px 30px rgba(212,175,55,.08);}
-.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
-.nav-logo-icon{width:44px;height:44px;border:2px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(212,175,55,.1);font-size:22px;}
-.nav-logo-txt .main{font-family:'Amiri',serif;font-size:21px;font-weight:700;background:linear-gradient(135deg,var(--gold2),var(--gold),var(--gold3),var(--gold2));background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gshine 3s ease-in-out infinite;}
-.nav-logo-txt .sub{font-size:9px;color:rgba(212,175,55,.5);letter-spacing:3px;}
-@keyframes gshine{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
-.nav-links{display:flex;gap:28px;align-items:center;}
-.nav-links a{text-decoration:none;color:rgba(255,255,255,.7);font-size:14px;font-weight:600;transition:color .3s;position:relative;}
-.nav-links a:hover{color:var(--gold);}
-.nav-links a::after{content:'';position:absolute;bottom:-3px;right:0;width:0;height:1px;background:var(--gold);transition:width .3s;}
-.nav-links a:hover::after{width:100%;}
-#menu-btn{display:none;background:none;border:none;color:var(--gold);font-size:24px;cursor:pointer;}
-.mobile-menu{position:fixed;inset:0;z-index:90;background:rgba(10,10,10,.98);backdrop-filter:blur(20px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;transform:translateX(100%);transition:transform .5s cubic-bezier(.16,1,.3,1);}
-.mobile-menu.open{transform:translateX(0);}
-.mobile-menu a{text-decoration:none;color:rgba(255,255,255,.8);font-size:22px;font-family:'Amiri',serif;transition:color .3s;}
-.mobile-menu a:hover{color:var(--gold);}
-.mm-close{position:absolute;top:20px;left:24px;background:none;border:none;color:var(--gold);font-size:28px;cursor:pointer;}
-
-/* ====== HERO ====== */
-#hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;}
-.hero-bg{position:absolute;inset:0;background:linear-gradient(180deg,#0A0A0A 0%,#1a1508 35%,#2a1f0a 55%,#1a1508 75%,#0A0A0A 100%);}
-.hero-sun{position:absolute;top:12%;left:50%;transform:translateX(-50%);width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(255,215,0,.35),rgba(212,175,55,.1),transparent);animation:sunP 4s ease-in-out infinite;}
-@keyframes sunP{0%,100%{transform:translateX(-50%) scale(1);opacity:.6;}50%{transform:translateX(-50%) scale(1.15);opacity:1;}}
-.pyramids{position:absolute;bottom:0;left:0;right:0;height:38%;pointer-events:none;}
-.pyr{position:absolute;bottom:0;clip-path:polygon(50% 0%,0% 100%,100% 100%);}
-.pyr1{width:280px;height:190px;left:8%;background:linear-gradient(180deg,rgba(212,175,55,.13),rgba(212,175,55,.04));}
-.pyr2{width:380px;height:270px;left:28%;background:linear-gradient(180deg,rgba(212,175,55,.18),rgba(212,175,55,.06));}
-.pyr3{width:240px;height:160px;right:12%;background:linear-gradient(180deg,rgba(212,175,55,.11),rgba(212,175,55,.03));}
-.pyr-glow{position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(212,175,55,.6),transparent);animation:pg 3s ease-in-out infinite;}
-@keyframes pg{0%,100%{opacity:.3;}50%{opacity:1;}}
-.sand{position:absolute;bottom:0;left:0;right:0;height:90px;background:linear-gradient(to top,rgba(194,178,128,.06),transparent);}
-.smoke-w{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
-.smk{position:absolute;bottom:-20%;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(212,175,55,.07),transparent);filter:blur(38px);animation:smkR 6s ease-out infinite;}
-@keyframes smkR{0%{transform:translateY(0) scale(1);opacity:.5;}50%{transform:translateY(-90px) scale(1.4);opacity:.25;}100%{transform:translateY(-180px) scale(1.9);opacity:0;}}
-.hero-content{position:relative;z-index:10;text-align:center;padding:0 24px;max-width:920px;}
-.ornament{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;}
-.orn-line{width:55px;height:1px;background:linear-gradient(90deg,transparent,var(--gold));}
-.orn-line.r{background:linear-gradient(90deg,var(--gold),transparent);}
-.orn-diamond{width:9px;height:9px;border:1px solid var(--gold);transform:rotate(45deg);background:rgba(212,175,55,.2);}
-.orn-txt{color:rgba(212,175,55,.65);font-size:12px;letter-spacing:4px;}
-.hero-h1{font-family:'Amiri',serif;font-size:clamp(30px,5.5vw,62px);font-weight:700;line-height:1.35;margin-bottom:18px;}
-.gold-txt{background:linear-gradient(135deg,var(--gold2),var(--gold),var(--gold3),var(--gold2));background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gshine 3s ease-in-out infinite;}
-.hero-sub{font-size:clamp(15px,2.2vw,20px);color:rgba(212,175,55,.75);margin-bottom:38px;font-weight:300;}
-.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
-.btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold3));color:#0A0A0A;font-weight:700;padding:14px 34px;border-radius:8px;border:none;cursor:pointer;font-size:15px;font-family:'Cairo',sans-serif;transition:all .3s;box-shadow:0 4px 20px rgba(212,175,55,.3);text-decoration:none;display:inline-flex;align-items:center;gap:8px;}
-.btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(212,175,55,.55);background:linear-gradient(135deg,var(--gold2),var(--gold));}
-.btn-outline{background:transparent;border:2px solid var(--gold);color:var(--gold);padding:12px 32px;border-radius:8px;cursor:pointer;font-size:15px;font-family:'Cairo',sans-serif;font-weight:600;transition:all .3s;text-decoration:none;display:inline-flex;align-items:center;gap:8px;}
-.btn-outline:hover{background:rgba(212,175,55,.1);box-shadow:0 0 20px rgba(212,175,55,.2);transform:translateY(-2px);}
-.scroll-ind{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:10;text-align:center;}
-.scroll-ind p{color:rgba(212,175,55,.45);font-size:11px;margin-bottom:8px;}
-.scroll-dot-wrap{width:22px;height:38px;border:2px solid rgba(212,175,55,.3);border-radius:11px;margin:0 auto;position:relative;}
-.scroll-dot{width:4px;height:7px;background:var(--gold);border-radius:2px;position:absolute;top:7px;left:50%;transform:translateX(-50%);animation:sdot 2s ease-in-out infinite;}
-@keyframes sdot{0%,100%{top:7px;opacity:1;}50%{top:22px;opacity:.3;}}
-
-/* ====== STATS ====== */
-.stats-wrap{position:relative;z-index:5;padding:50px 24px;background:linear-gradient(135deg,rgba(212,175,55,.04),rgba(10,10,10,.5));border-top:1px solid rgba(212,175,55,.08);border-bottom:1px solid rgba(212,175,55,.08);}
-.stats-inner{max-width:900px;margin:0 auto;display:flex;justify-content:space-around;flex-wrap:wrap;gap:30px;}
-.stat{text-align:center;}
-.stat-num{font-family:'Amiri',serif;font-size:38px;font-weight:700;}
-.stat-lbl{color:rgba(255,255,255,.4);font-size:13px;margin-top:4px;}
-
-/* ====== SECTION COMMON ====== */
-.section{position:relative;padding:90px 24px;overflow:hidden;}
-.section-top-line{position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(212,175,55,.2),transparent);}
-.sec-head{text-align:center;margin-bottom:56px;}
-.sec-head h2{font-family:'Amiri',serif;font-size:clamp(26px,4vw,46px);font-weight:700;margin-bottom:8px;}
-.sec-head p{color:rgba(255,255,255,.45);font-size:15px;}
-.sec-inner{max-width:1240px;margin:0 auto;}
-
-/* ====== SEARCH & FILTER ====== */
-.search-filter-wrap{max-width:1100px;margin:0 auto 48px;display:flex;flex-direction:column;gap:20px;}
-.search-box{position:relative;}
-.search-box input{width:100%;padding:16px 52px 16px 20px;background:rgba(212,175,55,.05);border:1px solid rgba(212,175,55,.2);border-radius:12px;color:#fff;font-family:'Cairo',sans-serif;font-size:16px;outline:none;transition:all .3s;}
-.search-box input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(212,175,55,.12);background:rgba(212,175,55,.08);}
-.search-box input::placeholder{color:rgba(212,175,55,.35);}
-.search-box .s-icon{position:absolute;left:18px;top:50%;transform:translateY(-50%);color:var(--gold);font-size:18px;}
-.filter-tabs{display:flex;gap:10px;flex-wrap:wrap;}
-.ftab{padding:9px 22px;border-radius:30px;border:1px solid rgba(212,175,55,.2);background:transparent;color:rgba(255,255,255,.6);font-family:'Cairo',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .3s;}
-.ftab:hover{border-color:var(--gold);color:var(--gold);}
-.ftab.active{background:linear-gradient(135deg,var(--gold),var(--gold3));color:#0A0A0A;border-color:transparent;box-shadow:0 4px 15px rgba(212,175,55,.3);}
-
-/* ====== PRODUCTS GRID ====== */
-.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px;}
-.pcard{background:rgba(212,175,55,.03);border:1px solid rgba(212,175,55,.1);border-radius:18px;padding:22px;text-align:center;transition:all .5s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden;}
-.pcard::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(212,175,55,.04),transparent,rgba(212,175,55,.04));opacity:0;transition:opacity .4s;}
-.pcard:hover::before{opacity:1;}
-.pcard:hover{transform:translateY(-9px);box-shadow:0 18px 55px rgba(212,175,55,.18),0 0 25px rgba(212,175,55,.08);}
-.pcard-badge{display:inline-block;padding:3px 12px;background:rgba(212,175,55,.15);border:1px solid rgba(212,175,55,.25);border-radius:20px;font-size:10px;color:var(--gold);margin-bottom:14px;letter-spacing:1px;}
-.pcard-icon{width:80px;height:80px;margin:0 auto 16px;border-radius:50%;background:linear-gradient(135deg,rgba(212,175,55,.12),rgba(212,175,55,.04));border:1px solid rgba(212,175,55,.15);display:flex;align-items:center;justify-content:center;font-size:32px;transition:all .4s;}
-.pcard:hover .pcard-icon{background:linear-gradient(135deg,rgba(212,175,55,.2),rgba(212,175,55,.08));border-color:rgba(212,175,55,.3);transform:scale(1.07);}
-.pcard h3{font-family:'Amiri',serif;font-size:20px;color:var(--gold);margin-bottom:5px;}
-.pcard .desc{font-size:12px;color:rgba(255,255,255,.38);margin-bottom:14px;line-height:1.6;}
-.pcard .prices{display:flex;justify-content:center;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
-.price-item{background:rgba(212,175,55,.06);border:1px solid rgba(212,175,55,.12);border-radius:8px;padding:5px 10px;font-size:12px;color:rgba(255,255,255,.75);}
-.price-item span{color:var(--gold2);font-weight:700;}
-.pcard-btn{width:100%;padding:11px;background:linear-gradient(135deg,var(--gold),var(--gold3));color:#0A0A0A;font-weight:700;border-radius:10px;border:none;font-size:14px;font-family:'Cairo',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;transition:all .3s;text-decoration:none;}
-.pcard-btn:hover{box-shadow:0 0 22px rgba(212,175,55,.45);transform:translateY(-1px);}
-.no-results{text-align:center;padding:60px 20px;color:rgba(212,175,55,.4);font-size:18px;font-family:'Amiri',serif;display:none;}
-
-/* ====== CATEGORIES SECTION ====== */
-.cats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:18px;}
-.catcard{background:rgba(212,175,55,.04);border:1px solid rgba(212,175,55,.12);border-radius:16px;padding:28px 16px;text-align:center;cursor:pointer;transition:all .4s;}
-.catcard:hover{transform:translateY(-7px) scale(1.02);box-shadow:0 14px 38px rgba(212,175,55,.18);border-color:var(--gold);}
-.catcard-icon{width:58px;height:58px;margin:0 auto 14px;border-radius:50%;background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.15);display:flex;align-items:center;justify-content:center;font-size:24px;color:var(--gold);}
-.catcard h3{font-family:'Amiri',serif;font-size:18px;color:var(--gold);margin-bottom:3px;}
-.catcard p{font-size:12px;color:rgba(255,255,255,.35);}
-
-/* ====== ABOUT ====== */
-.about-grid{display:flex;flex-wrap:wrap;gap:50px;align-items:center;}
-.about-img-wrap{flex:1;min-width:280px;position:relative;}
-.about-img{border-radius:22px;overflow:hidden;border:2px solid rgba(212,175,55,.18);}
-.about-img img{width:100%;height:380px;object-fit:cover;opacity:.6;}
-.about-img-overlay{position:absolute;inset:0;border-radius:22px;background:linear-gradient(135deg,rgba(10,10,10,.65),rgba(212,175,55,.08));}
-.about-badge{position:absolute;top:-18px;right:-18px;width:76px;height:76px;border-radius:50%;background:rgba(10,10,10,.9);border:2px solid rgba(212,175,55,.3);display:flex;align-items:center;justify-content:center;font-size:34px;backdrop-filter:blur(10px);}
-.about-txt{flex:1;min-width:280px;}
-.about-txt h2{font-family:'Amiri',serif;font-size:clamp(26px,3.5vw,42px);font-weight:700;margin-bottom:18px;line-height:1.4;}
-.about-txt p{color:rgba(255,255,255,.58);font-size:15px;line-height:1.85;margin-bottom:14px;}
-.about-stats{display:flex;gap:32px;flex-wrap:wrap;margin-top:24px;}
-.astat .num{font-family:'Amiri',serif;font-size:34px;font-weight:700;}
-.astat .lbl{color:rgba(255,255,255,.38);font-size:12px;}
-
-/* ====== SOCIAL SECTION ====== */
-.social-section{background:linear-gradient(135deg,rgba(212,175,55,.03),rgba(10,10,10,.5));border-top:1px solid rgba(212,175,55,.08);border-bottom:1px solid rgba(212,175,55,.08);}
-.social-cards{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-top:40px;}
-.soc-card{width:130px;height:130px;border-radius:20px;border:1px solid rgba(212,175,55,.15);background:rgba(212,175,55,.04);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-decoration:none;transition:all .4s;position:relative;overflow:hidden;}
-.soc-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(212,175,55,.08),transparent);opacity:0;transition:opacity .4s;}
-.soc-card:hover::before{opacity:1;}
-.soc-card:hover{transform:translateY(-8px);border-color:var(--gold);box-shadow:0 15px 40px rgba(212,175,55,.2);}
-.soc-card i{font-size:36px;color:var(--gold);transition:transform .4s;}
-.soc-card:hover i{transform:scale(1.15);}
-.soc-card span{font-size:12px;color:rgba(255,255,255,.55);font-weight:600;}
-
-/* ====== ORDER FORM ====== */
-.form-wrap{max-width:680px;margin:0 auto;background:rgba(212,175,55,.03);border:1px solid rgba(212,175,55,.1);border-radius:22px;padding:36px;backdrop-filter:blur(10px);}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
-.fgroup{display:flex;flex-direction:column;gap:7px;}
-.fgroup.full{grid-column:1/-1;}
-.fgroup label{color:var(--gold);font-size:13px;font-weight:600;display:flex;align-items:center;gap:7px;}
-.fgroup input,.fgroup select,.fgroup textarea{background:rgba(212,175,55,.05);border:1px solid rgba(212,175,55,.18);border-radius:8px;padding:12px 16px;color:#fff;font-family:'Cairo',sans-serif;font-size:15px;outline:none;transition:all .3s;}
-.fgroup input:focus,.fgroup select:focus,.fgroup textarea:focus{border-color:var(--gold);box-shadow:0 0 18px rgba(212,175,55,.12);background:rgba(212,175,55,.07);}
-.fgroup input::placeholder,.fgroup textarea::placeholder{color:rgba(212,175,55,.35);}
-.fgroup select{cursor:pointer;}
-.fgroup select option{background:#1a1508;color:#fff;}
-.fgroup textarea{resize:vertical;}
-.form-submit{width:100%;margin-top:26px;padding:16px;font-size:17px;}
-
-/* ====== REVIEWS ====== */
-.reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:22px;}
-.rcard{background:rgba(212,175,55,.04);border:1px solid rgba(212,175,55,.08);border-radius:18px;padding:28px;transition:all .4s;position:relative;overflow:hidden;}
-.rcard::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
-.rcard:hover{border-color:rgba(212,175,55,.28);transform:translateY(-5px);box-shadow:0 14px 40px rgba(212,175,55,.1);}
-.rcard-stars{display:flex;gap:3px;margin-bottom:14px;}
-.rcard-stars i{color:var(--gold);font-size:13px;}
-.rcard-txt{color:rgba(255,255,255,.68);font-size:14px;line-height:1.8;margin-bottom:18px;}
-.rcard-user{display:flex;align-items:center;gap:11px;}
-.rcard-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold3));display:flex;align-items:center;justify-content:center;font-weight:700;color:#0A0A0A;font-size:17px;}
-.rcard-name{font-weight:600;color:var(--gold);font-size:13px;}
-.rcard-city{color:rgba(255,255,255,.35);font-size:11px;}
-
-/* ====== FOOTER ====== */
-footer{position:relative;padding:56px 24px 28px;background:linear-gradient(180deg,#0A0A0A,#0d0b05);}
-footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(212,175,55,.25),transparent);}
-.footer-hiero{position:absolute;top:18px;left:50%;transform:translateX(-50%);color:rgba(212,175,55,.05);font-size:70px;letter-spacing:36px;pointer-events:none;white-space:nowrap;}
-.footer-inner{position:relative;z-index:1;max-width:1200px;margin:0 auto;}
-.footer-grid{display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between;margin-bottom:40px;}
-.footer-brand{flex:1;min-width:240px;}
-.footer-brand p{color:rgba(255,255,255,.38);font-size:13px;line-height:1.8;max-width:280px;margin-top:14px;}
-.footer-col h4{color:var(--gold);font-family:'Amiri',serif;font-size:18px;margin-bottom:14px;}
-.footer-col{flex:1;min-width:140px;}
-.footer-links{display:flex;flex-direction:column;gap:9px;}
-.footer-links a{text-decoration:none;color:rgba(255,255,255,.45);font-size:13px;transition:color .3s;}
-.footer-links a:hover{color:var(--gold);}
-.footer-contact-item{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.45);font-size:13px;text-decoration:none;margin-bottom:10px;transition:color .3s;}
-.footer-contact-item:hover{color:var(--gold);}
-.footer-contact-item i{color:var(--gold);width:16px;}
-.footer-soc{display:flex;gap:10px;margin-top:4px;}
-.footer-soc a{width:40px;height:40px;border-radius:50%;border:1px solid rgba(212,175,55,.25);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:16px;text-decoration:none;transition:all .35s;}
-.footer-soc a:hover{background:rgba(212,175,55,.12);border-color:var(--gold);transform:translateY(-3px);box-shadow:0 6px 18px rgba(212,175,55,.2);}
-.gold-div{display:flex;align-items:center;gap:14px;margin:0 auto 20px;max-width:280px;}
-.gold-div::before,.gold-div::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
-.gold-div span{color:var(--gold);font-size:16px;}
-.footer-copy{text-align:center;}
-.footer-copy p{color:rgba(255,255,255,.25);font-size:12px;}
-.footer-tagline{color:rgba(212,175,55,.3);font-size:12px;margin-top:6px;letter-spacing:1px;}
-
-/* ====== WHATSAPP FLOAT ====== */
-.wa-float{position:fixed;bottom:28px;left:28px;z-index:100;width:62px;height:62px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);animation:waP 2s ease-in-out infinite;cursor:pointer;text-decoration:none;transition:transform .3s;}
-.wa-float:hover{transform:scale(1.1);}
-@keyframes waP{0%,100%{box-shadow:0 4px 20px rgba(37,211,102,.4);}50%{box-shadow:0 4px 45px rgba(37,211,102,.7);}}
-.wa-float i{color:#fff;font-size:29px;}
-
-/* ====== TOAST ====== */
-#toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-100px);background:linear-gradient(135deg,var(--gold),var(--gold3));color:#0A0A0A;padding:14px 30px;border-radius:12px;font-weight:700;z-index:10000;transition:transform .5s cubic-bezier(.16,1,.3,1);font-family:'Cairo',sans-serif;white-space:nowrap;}
-#toast.show{transform:translateX(-50%) translateY(0);}
-
-/* ====== SCROLL REVEAL ====== */
-.rv{opacity:0;transform:translateY(55px);transition:all .9s cubic-bezier(.16,1,.3,1);}
-.rv.on{opacity:1;transform:translateY(0);}
-.rvl{opacity:0;transform:translateX(-70px);transition:all .9s cubic-bezier(.16,1,.3,1);}
-.rvl.on{opacity:1;transform:translateX(0);}
-.rvr{opacity:0;transform:translateX(70px);transition:all .9s cubic-bezier(.16,1,.3,1);}
-.rvr.on{opacity:1;transform:translateX(0);}
-.rvs{opacity:0;transform:scale(.82);transition:all .9s cubic-bezier(.16,1,.3,1);}
-.rvs.on{opacity:1;transform:scale(1);}
-
-/* ====== HIEROGLYPHS ====== */
-.hiero{position:absolute;color:rgba(212,175,55,.12);animation:floatH 9s ease-in-out infinite;pointer-events:none;user-select:none;}
-@keyframes floatH{0%,100%{transform:translateY(0) rotate(0deg);opacity:.08;}30%{transform:translateY(-14px) rotate(4deg);opacity:.2;}60%{transform:translateY(-22px) rotate(-2deg);opacity:.12;}80%{transform:translateY(-8px) rotate(6deg);opacity:.16;}}
-
-/* ====== RESPONSIVE ====== */
-@media(max-width:768px){
-  .nav-links{display:none;}
-  #menu-btn{display:block;}
-  .form-grid{grid-template-columns:1fr;}
-  .fgroup.full{grid-column:1;}
-  .about-grid{gap:30px;}
-  .stats-inner{gap:20px;}
-  .footer-grid{gap:28px;}
-  .hero-btns{gap:10px;}
-  .pyr1,.pyr3{display:none;}
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صالح للعطور - الفخامة تبدأ من أول رشة</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+    tailwind.config={theme:{extend:{colors:{'royal-gold':'#D4AF37','gold-light':'#FFD700','pharaoh-black':'#0A0A0A'},fontFamily:{'amiri':['Amiri','serif'],'cairo':['Cairo','sans-serif']}}}}
+    </script>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        html{scroll-behavior:smooth}
+        body{font-family:'Cairo',sans-serif;background:#0A0A0A;color:#fff;overflow-x:hidden}
+        #loading-screen{position:fixed;inset:0;z-index:9999;background:#0A0A0A;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .8s,visibility .8s}
+        #loading-screen.hidden{opacity:0;visibility:hidden;pointer-events:none}
+        .eye-glow{animation:eyePulse 2s ease-in-out infinite;filter:drop-shadow(0 0 20px rgba(212,175,55,.8))}
+        @keyframes eyePulse{0%,100%{filter:drop-shadow(0 0 20px rgba(212,175,55,.8));opacity:1}50%{filter:drop-shadow(0 0 40px rgba(255,215,0,1));opacity:.7}}
+        .loading-text{margin-top:30px;font-family:'Amiri',serif;font-size:24px;color:#D4AF37;animation:textPulse 1.5s ease-in-out infinite}
+        @keyframes textPulse{0%,100%{opacity:.5}50%{opacity:1}}
+        @keyframes loadBar{0%{width:0}100%{width:100%}}
+        #particles-canvas{position:fixed;inset:0;z-index:1;pointer-events:none}
+        .gold-text{background:linear-gradient(135deg,#FFD700,#D4AF37,#B8941F,#FFD700);background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:goldShimmer 3s ease-in-out infinite}
+        @keyframes goldShimmer{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+        .reveal{opacity:0;transform:translateY(60px);transition:all 1s cubic-bezier(.16,1,.3,1)}
+        .reveal.active{opacity:1;transform:translateY(0)}
+        .hero-sun{position:absolute;top:10%;left:50%;transform:translateX(-50%);width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(255,215,0,.4),transparent);animation:sunPulse 4s ease-in-out infinite}
+        @keyframes sunPulse{0%,100%{transform:translateX(-50%) scale(1);opacity:.6}50%{transform:translateX(-50%) scale(1.2);opacity:1}}
+        .pyramid{position:absolute;bottom:0;clip-path:polygon(50% 0%,0% 100%,100% 100%)}
+        .pyramid-1{width:300px;height:200px;left:10%;background:linear-gradient(180deg,rgba(212,175,55,.15),rgba(212,175,55,.05))}
+        .pyramid-2{width:400px;height:280px;left:30%;background:linear-gradient(180deg,rgba(212,175,55,.2),rgba(212,175,55,.07))}
+        .pyramid-3{width:250px;height:170px;right:15%;background:linear-gradient(180deg,rgba(212,175,55,.12),rgba(212,175,55,.04))}
+        .btn-gold{background:linear-gradient(135deg,#D4AF37,#B8941F);color:#0A0A0A;font-weight:700;padding:10px 24px;border-radius:8px;border:none;cursor:pointer;font-size:13px;font-family:'Cairo',sans-serif;transition:all .3s;box-shadow:0 4px 20px rgba(212,175,55,.3);text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+        .btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(212,175,55,.5);background:linear-gradient(135deg,#FFD700,#D4AF37)}
+        .btn-outline-gold{background:transparent;border:2px solid #D4AF37;color:#D4AF37;padding:12px 28px;border-radius:8px;cursor:pointer;font-size:14px;font-family:'Cairo',sans-serif;font-weight:600;transition:all .3s;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+        .btn-outline-gold:hover{background:rgba(212,175,55,.1);box-shadow:0 0 20px rgba(212,175,55,.2);transform:translateY(-2px)}
+        .product-card{background:rgba(212,175,55,.03);border:1px solid rgba(212,175,55,.1);border-radius:16px;overflow:hidden;transition:all .4s cubic-bezier(.16,1,.3,1);position:relative;min-width:230px;flex-shrink:0}
+        .product-card:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(212,175,55,.15);border-color:rgba(212,175,55,.3)}
+        .product-card:hover .card-glow{opacity:1}
+        .card-glow{position:absolute;top:20%;left:50%;transform:translate(-50%,-50%);width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(212,175,55,.2),transparent);filter:blur(25px);opacity:0;transition:opacity .5s;pointer-events:none}
+        .slider-container{position:relative;overflow:hidden}
+        .slider-track{display:flex;gap:16px;transition:transform .5s cubic-bezier(.16,1,.3,1);padding:10px 0}
+        .slider-btn{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:rgba(212,175,55,.15);border:1px solid rgba(212,175,55,.3);color:#D4AF37;font-size:16px;cursor:pointer;z-index:10;transition:all .3s;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px)}
+        .slider-btn:hover{background:rgba(212,175,55,.3);box-shadow:0 0 20px rgba(212,175,55,.3)}
+        .slider-btn-prev{left:8px}
+        .slider-btn-next{right:8px}
+        .filter-btn{padding:10px 22px;border-radius:30px;border:1px solid rgba(212,175,55,.2);background:transparent;color:rgba(255,255,255,.6);font-family:'Cairo',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .3s;white-space:nowrap}
+        .filter-btn:hover{border-color:#D4AF37;color:#D4AF37}
+        .filter-btn.active{background:linear-gradient(135deg,#D4AF37,#B8941F);color:#0A0A0A;border-color:transparent;box-shadow:0 4px 15px rgba(212,175,55,.3)}
+        .search-bar{background:rgba(212,175,55,.05);border:1px solid rgba(212,175,55,.2);border-radius:50px;padding:14px 24px;color:#fff;font-family:'Cairo',sans-serif;font-size:15px;width:100%;max-width:500px;outline:none;transition:all .3s}
+        .search-bar:focus{border-color:#D4AF37;box-shadow:0 0 20px rgba(212,175,55,.15);background:rgba(212,175,55,.08)}
+        .search-bar::placeholder{color:rgba(212,175,55,.4)}
+        .form-input{background:rgba(212,175,55,.05);border:1px solid rgba(212,175,55,.2);border-radius:8px;padding:14px 18px;color:#fff;font-family:'Cairo',sans-serif;font-size:15px;width:100%;transition:all .3s;outline:none}
+        .form-input:focus{border-color:#D4AF37;box-shadow:0 0 20px rgba(212,175,55,.15)}
+        .form-input::placeholder{color:rgba(212,175,55,.4)}
+        .whatsapp-float{position:fixed;bottom:30px;left:30px;z-index:100;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);animation:waPulse 2s ease-in-out infinite;cursor:pointer;text-decoration:none;transition:transform .3s}
+        .whatsapp-float:hover{transform:scale(1.1)}
+        @keyframes waPulse{0%,100%{box-shadow:0 4px 20px rgba(37,211,102,.4)}50%{box-shadow:0 4px 40px rgba(37,211,102,.7)}}
+        .cart-float{position:fixed;bottom:30px;right:30px;z-index:100;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#D4AF37,#B8941F);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(212,175,55,.4);cursor:pointer;transition:all .3s;border:none;color:#0A0A0A;font-size:22px}
+        .cart-float:hover{transform:scale(1.1);box-shadow:0 8px 30px rgba(212,175,55,.6)}
+        .cart-badge{position:absolute;top:-4px;right:-4px;width:22px;height:22px;border-radius:50%;background:#ef4444;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid #0A0A0A;transition:transform .3s}
+        .cart-badge.bump{animation:badgeBump .4s ease}
+        @keyframes badgeBump{0%{transform:scale(1)}50%{transform:scale(1.4)}100%{transform:scale(1)}}
+        .cart-panel{position:fixed;top:0;right:-420px;width:400px;max-width:100vw;height:100vh;z-index:200;background:rgba(10,10,10,.98);backdrop-filter:blur(20px);border-left:1px solid rgba(212,175,55,.15);transition:right .4s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column;overflow:hidden}
+        .cart-panel.open{right:0}
+        .cart-overlay{position:fixed;inset:0;z-index:199;background:rgba(0,0,0,.6);opacity:0;visibility:hidden;transition:all .3s}
+        .cart-overlay.open{opacity:1;visibility:visible}
+        .social-icon{transition:all .3s}
+        .social-icon:hover{transform:translateY(-5px) scale(1.1);box-shadow:0 8px 25px rgba(212,175,55,.3);border-color:#D4AF37 !important;background:rgba(212,175,55,.15) !important}
+        .navbar-scrolled{background:rgba(10,10,10,.95) !important;backdrop-filter:blur(20px) !important;box-shadow:0 4px 30px rgba(212,175,55,.1) !important}
+        .mobile-menu{position:fixed;inset:0;z-index:90;background:rgba(10,10,10,.98);backdrop-filter:blur(20px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px;transform:translateX(100%);transition:transform .5s cubic-bezier(.16,1,.3,1)}
+        .mobile-menu.open{transform:translateX(0)}
+        .section-ornament{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:16px}
+        .ornament-line{width:60px;height:1px;background:linear-gradient(90deg,transparent,#D4AF37)}
+        .ornament-line.rev{background:linear-gradient(90deg,#D4AF37,transparent)}
+        .ornament-diamond{width:10px;height:10px;border:1px solid #D4AF37;transform:rotate(45deg);background:rgba(212,175,55,.2)}
+        .toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-100px);background:linear-gradient(135deg,#D4AF37,#B8941F);color:#0A0A0A;padding:14px 28px;border-radius:12px;font-weight:700;z-index:10000;transition:transform .5s cubic-bezier(.16,1,.3,1);font-family:'Cairo',sans-serif;font-size:14px}
+        .toast.show{transform:translateX(-50%) translateY(0)}
+        .size-btn{padding:5px 12px;border-radius:6px;border:1px solid rgba(212,175,55,.2);background:transparent;color:rgba(255,255,255,.5);font-size:11px;font-family:'Cairo',sans-serif;cursor:pointer;transition:all .3s}
+        .size-btn.active,.size-btn:hover{background:rgba(212,175,55,.15);border-color:#D4AF37;color:#D4AF37}
+        .cat-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:30px;background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.15);color:#D4AF37;font-size:11px;font-weight:600}
+        .hieroglyph{position:absolute;font-size:24px;color:rgba(212,175,55,.08);animation:floatG 10s ease-in-out infinite;pointer-events:none;user-select:none}
+        @keyframes floatG{0%,100%{transform:translateY(0);opacity:.06}50%{transform:translateY(-20px);opacity:.15}}
+        .cart-item{display:flex;gap:12px;padding:14px;border-radius:12px;background:rgba(212,175,55,.03);border:1px solid rgba(212,175,55,.08);transition:all .3s}
+        .cart-item:hover{border-color:rgba(212,175,55,.2)}
+        .qty-btn{width:28px;height:28px;border-radius:6px;border:1px solid rgba(212,175,55,.2);background:transparent;color:#D4AF37;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+        .qty-btn:hover{background:rgba(212,175,55,.15)}
+        ::-webkit-scrollbar{width:5px}
+        ::-webkit-scrollbar-track{background:#0A0A0A}
+        ::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#D4AF37,#B8941F);border-radius:4px}
+        @keyframes addedPop{0%{transform:scale(1)}50%{transform:scale(1.15)}100%{transform:scale(1)}}
+        .added-pop{animation:addedPop .3s ease}
+    </style>
 </head>
 <body>
 
-<!-- LOADING SCREEN -->
-<div id="ls">
-  <div class="ls-eye">𓂀</div>
-  <div class="ls-bar"><div class="ls-bar-fill"></div></div>
-  <div class="ls-txt">صالح للعطور</div>
+<!-- Loading Screen -->
+<div id="loading-screen">
+    <div class="eye-glow"><svg viewBox="0 0 200 120" width="120" height="80" fill="none"><path d="M100 10 C60 10,20 50,10 60 C20 70,60 110,100 110 C140 110,180 70,190 60 C180 50,140 10,100 10Z" stroke="#D4AF37" stroke-width="3" fill="rgba(212,175,55,.1)"/><circle cx="100" cy="60" r="20" stroke="#D4AF37" stroke-width="2.5" fill="rgba(212,175,55,.15)"/><circle cx="100" cy="60" r="8" fill="#D4AF37"/></svg></div>
+    <div class="loading-text">صالح للعطور</div>
+    <div style="margin-top:20px;width:200px;height:2px;background:rgba(212,175,55,.2);border-radius:2px;overflow:hidden"><div style="width:0%;height:100%;background:#D4AF37;animation:loadBar 2.5s ease-in-out forwards"></div></div>
 </div>
 
-<!-- PARTICLES -->
-<canvas id="pc"></canvas>
+<canvas id="particles-canvas"></canvas>
+<div id="hieroglyphs" style="position:fixed;inset:0;pointer-events:none;z-index:2;overflow:hidden"></div>
+<div id="toast" class="toast"></div>
 
-<!-- TOAST -->
-<div id="toast"></div>
+<!-- Cart Overlay -->
+<div id="cart-overlay" class="cart-overlay" onclick="closeCart()"></div>
 
-<!-- FLOATING HIEROGLYPHS -->
-<div id="hieroglyphs" style="position:fixed;inset:0;pointer-events:none;z-index:2;overflow:hidden;"></div>
-
-<!-- NAVBAR -->
-<header id="nav">
-  <a href="#hero" class="nav-logo">
-    <div class="nav-logo-icon">𓂀</div>
-    <div class="nav-logo-txt">
-      <div class="main">صالح للعطور</div>
-      <div class="sub">SALEH PERFUMES</div>
+<!-- Cart Panel -->
+<div id="cart-panel" class="cart-panel">
+    <div style="padding:20px 24px;border-bottom:1px solid rgba(212,175,55,.1);display:flex;align-items:center;justify-content:space-between">
+        <div style="display:flex;align-items:center;gap:10px">
+            <i class="fas fa-shopping-bag" style="color:#D4AF37;font-size:20px"></i>
+            <h3 style="font-family:'Amiri',serif;font-size:20px;color:#D4AF37;margin:0">سلة المشتريات</h3>
+        </div>
+        <button onclick="closeCart()" style="background:none;border:none;color:rgba(255,255,255,.5);font-size:22px;cursor:pointer;padding:4px;transition:color .3s" onmouseover="this.style.color='#D4AF37'" onmouseout="this.style.color='rgba(255,255,255,.5)'"><i class="fas fa-times"></i></button>
     </div>
-  </a>
-  <nav class="nav-links">
-    <a href="#hero">الرئيسية</a>
-    <a href="#categories">التصنيفات</a>
-    <a href="#products">العطور</a>
-    <a href="#about">من نحن</a>
-    <a href="#social">تابعنا</a>
-    <a href="#contact">اطلب الآن</a>
-  </nav>
-  <button id="menu-btn" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+    <div id="cart-items" style="flex:1;overflow-y:auto;padding:16px 24px"></div>
+    <div id="cart-footer" style="padding:20px 24px;border-top:1px solid rgba(212,175,55,.15)">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+            <span style="color:rgba(255,255,255,.6);font-size:15px">الإجمالي</span>
+            <span id="cart-total" style="font-size:24px;font-weight:700;color:#FFD700">0 ج.م</span>
+        </div>
+        <button onclick="confirmOrder()" class="btn-gold" style="width:100%;justify-content:center;font-size:15px;padding:14px"><i class="fab fa-whatsapp" style="font-size:18px"></i> تأكيد الطلب عبر واتساب</button>
+        <button onclick="clearCart()" style="width:100%;margin-top:8px;padding:10px;border-radius:8px;border:1px solid rgba(239,68,68,.3);background:transparent;color:#ef4444;font-family:'Cairo',sans-serif;font-size:13px;cursor:pointer;transition:all .3s" onmouseover="this.style.background='rgba(239,68,68,.1)'" onmouseout="this.style.background='transparent'"><i class="fas fa-trash-alt" style="margin-left:6px"></i> إفراغ السلة</button>
+    </div>
+</div>
+
+<!-- HEADER -->
+<header id="navbar" style="position:fixed;top:0;left:0;right:0;z-index:80;transition:all .5s;background:transparent">
+    <div style="max-width:1280px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between">
+        <a href="#hero" style="text-decoration:none;display:flex;align-items:center;gap:10px">
+            <div style="width:40px;height:40px;border:2px solid #D4AF37;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(212,175,55,.1)"><svg viewBox="0 0 200 120" width="24" height="24" fill="none"><path d="M100 10 C60 10,20 50,10 60 C20 70,60 110,100 110 C140 110,180 70,190 60 C180 50,140 10,100 10Z" stroke="#D4AF37" stroke-width="4" fill="rgba(212,175,55,.2)"/><circle cx="100" cy="60" r="18" stroke="#D4AF37" stroke-width="3" fill="rgba(212,175,55,.15)"/><circle cx="100" cy="60" r="7" fill="#D4AF37"/></svg></div>
+            <div><div class="gold-text" style="font-family:'Amiri',serif;font-size:18px;font-weight:700;line-height:1">صالح للعطور</div><div style="font-size:9px;color:rgba(212,175,55,.5);letter-spacing:3px">SALEH PERFUMES</div></div>
+        </a>
+        <nav style="display:flex;align-items:center;gap:24px" class="hidden md:flex">
+            <a href="#hero" style="text-decoration:none;color:#D4AF37;font-size:13px;font-weight:600">الرئيسية</a>
+            <a href="#products" style="text-decoration:none;color:rgba(255,255,255,.6);font-size:13px;font-weight:600;transition:color .3s" onmouseover="this.style.color='#D4AF37'" onmouseout="this.style.color='rgba(255,255,255,.6)'">المنتجات</a>
+            <a href="#about" style="text-decoration:none;color:rgba(255,255,255,.6);font-size:13px;font-weight:600;transition:color .3s" onmouseover="this.style.color='#D4AF37'" onmouseout="this.style.color='rgba(255,255,255,.6)'">من نحن</a>
+            <a href="#social" style="text-decoration:none;color:rgba(255,255,255,.6);font-size:13px;font-weight:600;transition:color .3s" onmouseover="this.style.color='#D4AF37'" onmouseout="this.style.color='rgba(255,255,255,.6)'">تابعنا</a>
+        </nav>
+        <button class="md:hidden" style="background:none;border:none;color:#D4AF37;font-size:22px;cursor:pointer" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
+    </div>
 </header>
 
-<!-- MOBILE MENU -->
-<div id="mm" class="mobile-menu">
-  <button class="mm-close" onclick="toggleMenu()"><i class="fas fa-times"></i></button>
-  <a href="#hero" onclick="toggleMenu()">الرئيسية</a>
-  <a href="#categories" onclick="toggleMenu()">التصنيفات</a>
-  <a href="#products" onclick="toggleMenu()">العطور</a>
-  <a href="#about" onclick="toggleMenu()">من نحن</a>
-  <a href="#social" onclick="toggleMenu()">تابعنا</a>
-  <a href="#contact" onclick="toggleMenu()">اطلب الآن</a>
+<!-- Mobile Menu -->
+<div id="mobile-menu" class="mobile-menu">
+    <button style="position:absolute;top:20px;left:20px;background:none;border:none;color:#D4AF37;font-size:28px;cursor:pointer" onclick="toggleMobileMenu()"><i class="fas fa-times"></i></button>
+    <a href="#hero" onclick="toggleMobileMenu()" style="text-decoration:none;color:#D4AF37;font-size:22px;font-family:'Amiri',serif">الرئيسية</a>
+    <a href="#products" onclick="toggleMobileMenu()" style="text-decoration:none;color:rgba(255,255,255,.8);font-size:18px">المنتجات</a>
+    <a href="#about" onclick="toggleMobileMenu()" style="text-decoration:none;color:rgba(255,255,255,.8);font-size:18px">من نحن</a>
+    <a href="#social" onclick="toggleMobileMenu()" style="text-decoration:none;color:rgba(255,255,255,.8);font-size:18px">تابعنا</a>
+    <a href="#" onclick="openCart();toggleMobileMenu()" style="text-decoration:none;color:rgba(255,255,255,.8);font-size:18px"><i class="fas fa-shopping-bag" style="margin-left:8px;color:#D4AF37"></i> السلة</a>
 </div>
 
 <!-- HERO -->
-<section id="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-sun"></div>
-  <div class="pyramids">
-    <div class="pyr pyr1"></div>
-    <div class="pyr pyr2"></div>
-    <div class="pyr pyr3"></div>
-    <div class="pyr-glow"></div>
-  </div>
-  <div class="sand"></div>
-  <div class="smoke-w">
-    <div class="smk" style="left:18%;animation-delay:0s;"></div>
-    <div class="smk" style="left:50%;animation-delay:2s;"></div>
-    <div class="smk" style="left:80%;animation-delay:4s;"></div>
-  </div>
-  <div class="hero-content">
-    <div class="ornament rv">
-      <div class="orn-line r"></div><div class="orn-diamond"></div>
-      <span class="orn-txt">𓂀 صالح للعطور 𓂀</span>
-      <div class="orn-diamond"></div><div class="orn-line"></div>
+<section id="hero" style="position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden">
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,#0A0A0A 0%,#1a1508 30%,#2a1f0a 50%,#1a1508 70%,#0A0A0A 100%)"></div>
+    <div class="hero-sun"></div>
+    <div style="position:absolute;bottom:0;left:0;right:0;height:40%;pointer-events:none"><div class="pyramid pyramid-1"></div><div class="pyramid pyramid-2"></div><div class="pyramid pyramid-3"></div></div>
+    <div style="position:relative;z-index:10;text-align:center;padding:0 24px;max-width:900px">
+        <div class="section-ornament reveal" style="margin-bottom:24px"><div class="ornament-line rev"></div><div class="ornament-diamond"></div><span style="color:#D4AF37;font-size:13px;letter-spacing:4px">𓂀 صالح للعطور 𓂀</span><div class="ornament-diamond"></div><div class="ornament-line"></div></div>
+        <h1 class="reveal" style="font-family:'Amiri',serif;font-size:clamp(28px,6vw,58px);font-weight:700;line-height:1.3;margin-bottom:20px"><span class="gold-text">عطور مستوحاة من</span><br><span style="color:#fff">عظمة الملوك الفراعنة</span></h1>
+        <p class="reveal" style="font-size:clamp(15px,2.5vw,20px);color:rgba(212,175,55,.8);margin-bottom:36px;font-weight:300">الفخامة تبدأ من أول رشة</p>
+        <div class="reveal" style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+            <a href="#products" class="btn-gold" style="padding:14px 32px;font-size:15px"><i class="fas fa-crown"></i> تسوق الآن</a>
+            <a href="https://wa.me/201000017414" target="_blank" class="btn-outline-gold"><i class="fab fa-whatsapp" style="font-size:18px"></i> تواصل واتساب</a>
+        </div>
     </div>
-    <h1 class="hero-h1 rv">
-      <span class="gold-txt">عطور مستوحاة من</span><br>
-      <span style="color:#fff;">عظمة الملوك الفراعنة</span>
-    </h1>
-    <p class="hero-sub rv">الفخامة تبدأ من أول رشة</p>
-    <div class="hero-btns rv">
-      <a href="#products" class="btn-gold"><i class="fas fa-crown" style="font-size:13px;"></i> اطلب الآن</a>
-      <a href="https://wa.me/201000017414" target="_blank" class="btn-outline"><i class="fab fa-whatsapp" style="font-size:17px;"></i> تواصل واتساب</a>
-    </div>
-    <div class="rvs" style="margin-top:44px;">
-      <div style="width:160px;height:220px;margin:0 auto;position:relative;">
-        <div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:74px;height:148px;background:linear-gradient(180deg,rgba(212,175,55,.25),rgba(212,175,55,.08));border-radius:6px 6px 10px 10px;border:1px solid rgba(212,175,55,.35);"></div>
-        <div style="position:absolute;bottom:128px;left:50%;transform:translateX(-50%);width:18px;height:36px;background:linear-gradient(180deg,rgba(212,175,55,.4),rgba(212,175,55,.15));border:1px solid rgba(212,175,55,.35);border-radius:3px 3px 0 0;"></div>
-        <div style="position:absolute;bottom:161px;left:50%;transform:translateX(-50%);width:36px;height:11px;background:rgba(212,175,55,.35);border-radius:3px;border:1px solid rgba(212,175,55,.45);"></div>
-        <div style="position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);width:90px;height:90px;border-radius:50%;background:radial-gradient(circle,rgba(255,215,0,.15),transparent);filter:blur(18px);animation:smkR 4s ease-in-out infinite;"></div>
-      </div>
-    </div>
-  </div>
-  <div class="scroll-ind">
-    <p>اكتشف المزيد</p>
-    <div class="scroll-dot-wrap"><div class="scroll-dot"></div></div>
-  </div>
-</section>
-
-<!-- STATS -->
-<div class="stats-wrap">
-  <div class="stats-inner">
-    <div class="stat rv"><div class="stat-num gold-txt">+5000</div><div class="stat-lbl">عميل سعيد</div></div>
-    <div class="stat rv"><div class="stat-num gold-txt">+120</div><div class="stat-lbl">عطر متاح</div></div>
-    <div class="stat rv"><div class="stat-num gold-txt">5</div><div class="stat-lbl">تصنيفات فاخرة</div></div>
-    <div class="stat rv"><div class="stat-num gold-txt">10+</div><div class="stat-lbl">سنوات خبرة</div></div>
-  </div>
-</div>
-
-<!-- CATEGORIES -->
-<section id="categories" class="section" style="background:linear-gradient(180deg,#0A0A0A,#0d0b05);">
-  <div class="section-top-line"></div>
-  <div class="sec-inner">
-    <div class="sec-head rv">
-      <div class="ornament"><div class="orn-line r"></div><div class="orn-diamond"></div><span class="orn-txt">تصنيفاتنا</span><div class="orn-diamond"></div><div class="orn-line"></div></div>
-      <h2><span class="gold-txt">تشكيلة العطور الملكية</span></h2>
-      <p>اختر من بين أرقى التصنيفات</p>
-    </div>
-    <div class="cats-grid">
-      <div class="catcard rv" onclick="filterAndScroll('niche')">
-        <div class="catcard-icon"><i class="fas fa-gem"></i></div>
-        <h3>نيش فاخر</h3>
-        <p>Luxury Niche</p>
-      </div>
-      <div class="catcard rv" onclick="filterAndScroll('women')">
-        <div class="catcard-icon"><i class="fas fa-venus"></i></div>
-        <h3>حريمي</h3>
-        <p>Women Collection</p>
-      </div>
-      <div class="catcard rv" onclick="filterAndScroll('men')">
-        <div class="catcard-icon"><i class="fas fa-mars"></i></div>
-        <h3>رجالي</h3>
-        <p>Men Designer</p>
-      </div>
-      <div class="catcard rv" onclick="filterAndScroll('oriental')">
-        <div class="catcard-icon"><i class="fas fa-star-and-crescent"></i></div>
-        <h3>شرقي</h3>
-        <p>Oriental Collection</p>
-      </div>
-      <div class="catcard rv" onclick="filterAndScroll('musk')">
-        <div class="catcard-icon"><i class="fas fa-wind"></i></div>
-        <h3>مسكات</h3>
-        <p>Musk Collection</p>
-      </div>
-    </div>
-  </div>
 </section>
 
 <!-- PRODUCTS -->
-<section id="products" class="section">
-  <div class="section-top-line"></div>
-  <div class="sec-inner">
-    <div class="sec-head rv">
-      <div class="ornament"><div class="orn-line r"></div><div class="orn-diamond"></div><span class="orn-txt">منتجاتنا</span><div class="orn-diamond"></div><div class="orn-line"></div></div>
-      <h2><span class="gold-txt">أرقى العطور الفاخرة</span></h2>
-      <p>كل عطر يحكي قصة حضارة</p>
+<section id="products" style="position:relative;padding:80px 24px;overflow:hidden">
+    <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(212,175,55,.3),transparent)"></div>
+    <div style="position:relative;z-index:1;max-width:1300px;margin:0 auto">
+        <div class="text-center reveal">
+            <div class="section-ornament"><div class="ornament-line rev"></div><div class="ornament-diamond"></div><span style="color:rgba(212,175,55,.6);font-size:12px;letter-spacing:4px">تشكيلتنا</span><div class="ornament-diamond"></div><div class="ornament-line"></div></div>
+            <h2 style="font-family:'Amiri',serif;font-size:clamp(24px,4vw,42px);font-weight:700;margin-bottom:8px"><span class="gold-text">عطور صالح الفاخرة</span></h2>
+            <p style="color:rgba(255,255,255,.5);font-size:15px">أكثر من 100 عطر أصلي — اختر وأضف لسلتك</p>
+        </div>
+        <div class="reveal" style="margin-top:36px;display:flex;flex-direction:column;align-items:center;gap:18px">
+            <div style="position:relative;width:100%;max-width:480px"><i class="fas fa-search" style="position:absolute;right:18px;top:50%;transform:translateY(-50%);color:rgba(212,175,55,.5)"></i><input type="text" id="search-input" class="search-bar" placeholder="ابحث عن اسم العطر..." style="padding-right:46px" oninput="renderProducts()"></div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center" id="filter-buttons">
+                <button class="filter-btn active" onclick="setFilter('all',this)">الكل</button>
+                <button class="filter-btn" onclick="setFilter('niche',this)">نيش فاخرة</button>
+                <button class="filter-btn" onclick="setFilter('women',this)">حريمي</button>
+                <button class="filter-btn" onclick="setFilter('men',this)">رجالي</button>
+                <button class="filter-btn" onclick="setFilter('oriental',this)">شرقي</button>
+                <button class="filter-btn" onclick="setFilter('musk',this)">مسكات</button>
+            </div>
+        </div>
+        <div id="products-container" style="margin-top:36px"></div>
+        <div id="no-results" style="display:none;text-align:center;padding:50px 20px"><i class="fas fa-search" style="font-size:40px;color:rgba(212,175,55,.15);margin-bottom:12px;display:block"></i><p style="color:rgba(255,255,255,.35);font-size:16px">لم يتم العثور على نتائج</p></div>
     </div>
-    <div class="search-filter-wrap rv">
-      <div class="search-box">
-        <input type="text" id="search-input" placeholder="ابحث عن عطرك المفضل..." oninput="doSearch()">
-        <i class="fas fa-search s-icon"></i>
-      </div>
-      <div class="filter-tabs">
-        <button class="ftab active" onclick="setFilter('all',this)">الكل</button>
-        <button class="ftab" onclick="setFilter('niche',this)">نيش فاخر</button>
-        <button class="ftab" onclick="setFilter('women',this)">حريمي</button>
-        <button class="ftab" onclick="setFilter('men',this)">رجالي</button>
-        <button class="ftab" onclick="setFilter('oriental',this)">شرقي</button>
-        <button class="ftab" onclick="setFilter('musk',this)">مسكات</button>
-      </div>
-    </div>
-    <div class="products-grid" id="products-grid"></div>
-    <div class="no-results" id="no-results">لا توجد نتائج للبحث 𓂀</div>
-  </div>
 </section>
 
 <!-- ABOUT -->
-<section id="about" class="section" style="background:linear-gradient(180deg,#0A0A0A,#0d0b05);">
-  <div class="section-top-line"></div>
-  <div class="sec-inner">
-    <div class="about-grid">
-      <div class="about-img-wrap rvl">
-        <div class="about-img">
-          <img src="https://images.unsplash.com/photo-1596386461350-326ccb383e9f?w=600&q=70" alt="صالح للعطور" onerror="this.style.height='380px';this.style.background='linear-gradient(135deg,rgba(212,175,55,.1),rgba(10,10,10,.8))'">
-          <div class="about-img-overlay"></div>
+<section id="about" style="position:relative;padding:80px 24px;overflow:hidden">
+    <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(212,175,55,.3),transparent)"></div>
+    <div style="position:relative;z-index:1;max-width:1100px;margin:0 auto">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:50px">
+            <div class="reveal" style="flex:1;min-width:280px">
+                <div style="border-radius:20px;overflow:hidden;border:2px solid rgba(212,175,55,.12);position:relative">
+                    <img src="https://picsum.photos/seed/egypt-temple-gold/600/450" style="width:100%;height:360px;object-fit:cover;opacity:.45">
+                    <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,10,10,.7),rgba(212,175,55,.08))"></div>
+                </div>
+            </div>
+            <div class="reveal" style="flex:1;min-width:280px">
+                <div class="section-ornament" style="justify-content:flex-start"><div class="ornament-line rev"></div><span style="color:rgba(212,175,55,.6);font-size:12px;letter-spacing:4px">قصتنا</span></div>
+                <h2 style="font-family:'Amiri',serif;font-size:clamp(22px,4vw,38px);font-weight:700;margin-bottom:18px;line-height:1.4"><span class="gold-text">عطور تحمل روح</span><br><span style="color:#fff">الحضارة الفرعونية</span></h2>
+                <p style="color:rgba(255,255,255,.5);font-size:14px;line-height:1.9;margin-bottom:14px">انطلقت رحلة "صالح للعطور" من إيمان عميق بأن العطر ليس مجرد رائحة، بل هو هوية وتاريخ. استلهمنا من حضارة الفراعنة لنصنع تجربة عطرية فريدة تجمع بين أصالة الماضي وفخامة الحاضر.</p>
+                <p style="color:rgba(255,255,255,.5);font-size:14px;line-height:1.9;margin-bottom:28px">كل زجاجة من صالح للعطور تُحمل بيد صانع عطر محترف، وتُختار مكوناتها من أجود الأنواع لتمنحك تجربة ملكية حقيقية.</p>
+                <div style="display:flex;gap:32px;flex-wrap:wrap">
+                    <div><div class="gold-text" style="font-family:'Amiri',serif;font-size:30px;font-weight:700">+5000</div><div style="color:rgba(255,255,255,.3);font-size:11px">عميل سعيد</div></div>
+                    <div><div class="gold-text" style="font-family:'Amiri',serif;font-size:30px;font-weight:700">+100</div><div style="color:rgba(255,255,255,.3);font-size:11px">عطر حصري</div></div>
+                    <div><div class="gold-text" style="font-family:'Amiri',serif;font-size:30px;font-weight:700">10+</div><div style="color:rgba(255,255,255,.3);font-size:11px">سنوات خبرة</div></div>
+                </div>
+            </div>
         </div>
-        <div class="about-badge">𓂀</div>
-      </div>
-      <div class="about-txt rvr">
-        <div class="ornament" style="justify-content:flex-start;">
-          <div class="orn-line r"></div>
-          <span class="orn-txt">قصتنا</span>
-        </div>
-        <h2><span class="gold-txt">عطور تحمل روح</span><br><span style="color:#fff;">الحضارة الفرعونية</span></h2>
-        <p>انطلقت رحلة "صالح للعطور" من إيمان عميق بأن العطر ليس مجرد رائحة، بل هو هوية وتاريخ. استلهمنا من حضارة الفراعنة العظيمة لنصنع تجربة عطرية فريدة تجمع بين أصالة الماضي وفخامة الحاضر.</p>
-        <p>كل عطر من صالح للعطور يُختار بعناية فائقة من أجود أنواع العود والمسك والعنبر، لتمنحك تجربة ملكية حقيقية تبدأ من أول رشة وتستمر طوال اليوم.</p>
-        <div class="about-stats">
-          <div class="astat"><div class="num gold-txt">+5000</div><div class="lbl">عميل سعيد</div></div>
-          <div class="astat"><div class="num gold-txt">+120</div><div class="lbl">عطر حصري</div></div>
-          <div class="astat"><div class="num gold-txt">10+</div><div class="lbl">سنوات خبرة</div></div>
-        </div>
-      </div>
     </div>
-  </div>
 </section>
 
-<!-- SOCIAL MEDIA SECTION -->
-<section id="social" class="section social-section">
-  <div class="section-top-line"></div>
-  <div class="sec-inner">
-    <div class="sec-head rv">
-      <div class="ornament"><div class="orn-line r"></div><div class="orn-diamond"></div><span class="orn-txt">تواصل معنا</span><div class="orn-diamond"></div><div class="orn-line"></div></div>
-      <h2><span class="gold-txt">تابع صالح للعطور</span></h2>
-      <p>ابقَ على اطلاع بأحدث العطور والعروض</p>
-    </div>
-    <div class="social-cards">
-      <a href="https://www.facebook.com/share/187FMcJiQi/?mibextid=wwXIfr" target="_blank" class="soc-card rv">
-        <i class="fab fa-facebook-f"></i>
-        <span>Facebook</span>
-      </a>
-      <a href="https://www.instagram.com/saleh_perfumes" target="_blank" class="soc-card rv">
-        <i class="fab fa-instagram"></i>
-        <span>Instagram</span>
-      </a>
-      <a href="https://www.tiktok.com/@karamsalehkamel" target="_blank" class="soc-card rv">
-        <i class="fab fa-tiktok"></i>
-        <span>TikTok</span>
-      </a>
-      <a href="https://t.me/+rjo72_YTIutiMWZk" target="_blank" class="soc-card rv">
-        <i class="fab fa-telegram-plane"></i>
-        <span>Telegram</span>
-      </a>
-      <a href="https://wa.me/201000017414" target="_blank" class="soc-card rv">
-        <i class="fab fa-whatsapp"></i>
-        <span>WhatsApp</span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ORDER FORM -->
-<section id="contact" class="section">
-  <div class="section-top-line"></div>
-  <div class="sec-inner">
-    <div class="sec-head rv">
-      <div class="ornament"><div class="orn-line r"></div><div class="orn-diamond"></div><span class="orn-txt">اطلب الآن</span><div class="orn-diamond"></div><div class="orn-line"></div></div>
-      <h2><span class="gold-txt">أكمل طلبك</span></h2>
-      <p>سيتم تحويل طلبك مباشرة عبر واتساب</p>
-    </div>
-    <div class="form-wrap rv">
-      <form id="order-form" onsubmit="submitOrder(event)">
-        <div class="form-grid">
-          <div class="fgroup">
-            <label><i class="fas fa-user"></i> الاسم</label>
-            <input type="text" id="f-name" placeholder="أدخل اسمك الكامل" required>
-          </div>
-          <div class="fgroup">
-            <label><i class="fas fa-phone"></i> رقم الهاتف</label>
-            <input type="tel" id="f-phone" placeholder="01XXXXXXXXX" required>
-          </div>
-          <div class="fgroup full">
-            <label><i class="fas fa-map-marker-alt"></i> العنوان</label>
-            <input type="text" id="f-address" placeholder="المحافظة - المنطقة - الشارع" required>
-          </div>
-          <div class="fgroup">
-            <label><i class="fas fa-flask"></i> اسم العطر</label>
-            <input type="text" id="f-product" placeholder="مثال: كريد أفنتوس" required>
-          </div>
-          <div class="fgroup">
-            <label><i class="fas fa-expand"></i> الحجم</label>
-            <select id="f-size">
-              <option value="30ml">30ml</option>
-              <option value="50ml" selected>50ml</option>
-              <option value="100ml">100ml</option>
-            </select>
-          </div>
-          <div class="fgroup">
-            <label><i class="fas fa-sort-numeric-up"></i> الكمية</label>
-            <input type="number" id="f-qty" value="1" min="1" required>
-          </div>
-          <div class="fgroup full">
-            <label><i class="fas fa-comment"></i> ملاحظات</label>
-            <textarea id="f-notes" rows="3" placeholder="أي ملاحظات إضافية..."></textarea>
-          </div>
+<!-- SOCIAL -->
+<section id="social" style="position:relative;padding:80px 24px;overflow:hidden">
+    <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(212,175,55,.3),transparent)"></div>
+    <div style="position:relative;z-index:1;max-width:800px;margin:0 auto;text-align:center">
+        <div class="reveal">
+            <div class="section-ornament"><div class="ornament-line rev"></div><div class="ornament-diamond"></div><span style="color:rgba(212,175,55,.6);font-size:12px;letter-spacing:4px">تواصل معنا</span><div class="ornament-diamond"></div><div class="ornament-line"></div></div>
+            <h2 style="font-family:'Amiri',serif;font-size:clamp(24px,4vw,40px);font-weight:700;margin-bottom:8px"><span class="gold-text">تابع صالح للعطور</span></h2>
+            <p style="color:rgba(255,255,255,.5);font-size:14px;margin-bottom:36px">كن أول من يعرف أحدث العروض والتشكيلات</p>
         </div>
-        <button type="submit" class="btn-gold form-submit">
-          <i class="fab fa-whatsapp" style="font-size:20px;"></i>
-          تأكيد الطلب عبر واتساب
-        </button>
-      </form>
+        <div class="reveal" style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+            <a href="https://www.facebook.com/share/187FMcJiQi/?mibextid=wwXIfr" target="_blank" class="social-icon" style="width:76px;height:76px;border-radius:18px;border:1px solid rgba(212,175,55,.15);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-decoration:none;background:rgba(212,175,55,.03)"><i class="fab fa-facebook-f" style="font-size:26px;color:#D4AF37"></i><span style="font-size:9px;color:rgba(255,255,255,.4)">Facebook</span></a>
+            <a href="https://www.instagram.com/saleh_perfumes" target="_blank" class="social-icon" style="width:76px;height:76px;border-radius:18px;border:1px solid rgba(212,175,55,.15);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-decoration:none;background:rgba(212,175,55,.03)"><i class="fab fa-instagram" style="font-size:26px;color:#D4AF37"></i><span style="font-size:9px;color:rgba(255,255,255,.4)">Instagram</span></a>
+            <a href="https://www.tiktok.com/@karamsalehkamel" target="_blank" class="social-icon" style="width:76px;height:76px;border-radius:18px;border:1px solid rgba(212,175,55,.15);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-decoration:none;background:rgba(212,175,55,.03)"><i class="fab fa-tiktok" style="font-size:26px;color:#D4AF37"></i><span style="font-size:9px;color:rgba(255,255,255,.4)">TikTok</span></a>
+            <a href="https://t.me/+rjo72_YTIutiMWZk" target="_blank" class="social-icon" style="width:76px;height:76px;border-radius:18px;border:1px solid rgba(212,175,55,.15);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-decoration:none;background:rgba(212,175,55,.03)"><i class="fab fa-telegram-plane" style="font-size:26px;color:#D4AF37"></i><span style="font-size:9px;color:rgba(255,255,255,.4)">Telegram</span></a>
+            <a href="https://wa.me/201000017414" target="_blank" class="social-icon" style="width:76px;height:76px;border-radius:18px;border:1px solid rgba(37,211,102,.25);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-decoration:none;background:rgba(37,211,102,.04)"><i class="fab fa-whatsapp" style="font-size:26px;color:#25D366"></i><span style="font-size:9px;color:rgba(255,255,255,.4)">WhatsApp</span></a>
+        </div>
     </div>
-  </div>
-</section>
-
-<!-- REVIEWS -->
-<section id="reviews" class="section" style="background:linear-gradient(180deg,#0A0A0A,#0d0b05);">
-  <div class="section-top-line"></div>
-  <div class="sec-inner">
-    <div class="sec-head rv">
-      <div class="ornament"><div class="orn-line r"></div><div class="orn-diamond"></div><span class="orn-txt">آراء العملاء</span><div class="orn-diamond"></div><div class="orn-line"></div></div>
-      <h2><span class="gold-txt">ماذا يقول عملاؤنا</span></h2>
-      <p>شهادات حقيقية من عشاق العطور</p>
-    </div>
-    <div class="reviews-grid">
-      <div class="rcard rv">
-        <div class="rcard-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-        <p class="rcard-txt">"كريد أفنتوس من صالح العطور مذهل! الثبات استمر معايا أكثر من 12 ساعة والرائحة أخدت كل اللي حواليا."</p>
-        <div class="rcard-user"><div class="rcard-avatar">أ</div><div><div class="rcard-name">أحمد محمد</div><div class="rcard-city">القاهرة</div></div></div>
-      </div>
-      <div class="rcard rv">
-        <div class="rcard-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-        <p class="rcard-txt">"اشتريت كوكو مدموزيل وكان تماماً زي الأصلي. سعر معقول وجودة ممتازة. هطلب تاني أكيد!"</p>
-        <div class="rcard-user"><div class="rcard-avatar">س</div><div><div class="rcard-name">سارة أحمد</div><div class="rcard-city">الإسكندرية</div></div></div>
-      </div>
-      <div class="rcard rv">
-        <div class="rcard-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
-        <p class="rcard-txt">"غبار الذهب عطر مختلف تماماً. حاجة تاني خالص. التعامل محترم والتوصيل وصل بسرعة."</p>
-        <div class="rcard-user"><div class="rcard-avatar">م</div><div><div class="rcard-name">محمود علي</div><div class="rcard-city">الجيزة</div></div></div>
-      </div>
-      <div class="rcard rv">
-        <div class="rcard-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-        <p class="rcard-txt">"الخدمة ممتازة والعطور أصلية 100%. هبقى عميل دايمي لصالح للعطور!"</p>
-        <div class="rcard-user"><div class="rcard-avatar">ن</div><div><div class="rcard-name">نورهان خالد</div><div class="rcard-city">المنصورة</div></div></div>
-      </div>
-    </div>
-  </div>
 </section>
 
 <!-- FOOTER -->
-<footer>
-  <div class="footer-hiero">𓂀 𓁢 𓅃 𓆣 𓇋 𓈖 𓉐 𓊝</div>
-  <div class="footer-inner">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <a href="#hero" class="nav-logo" style="margin-bottom:0;">
-          <div class="nav-logo-icon">𓂀</div>
-          <div class="nav-logo-txt">
-            <div class="main">صالح للعطور</div>
-            <div class="sub">SALEH PERFUMES</div>
-          </div>
-        </a>
-        <p>صالح للعطور — الفخامة تبدأ من أول رشة. عطور فاخرة مستوحاة من عظمة الحضارة الفرعونية.</p>
-        <div class="footer-soc" style="margin-top:16px;">
-          <a href="https://www.facebook.com/share/187FMcJiQi/?mibextid=wwXIfr" target="_blank"><i class="fab fa-facebook-f"></i></a>
-          <a href="https://www.instagram.com/saleh_perfumes" target="_blank"><i class="fab fa-instagram"></i></a>
-          <a href="https://www.tiktok.com/@karamsalehkamel" target="_blank"><i class="fab fa-tiktok"></i></a>
-          <a href="https://t.me/+rjo72_YTIutiMWZk" target="_blank"><i class="fab fa-telegram-plane"></i></a>
+<footer style="position:relative;padding:50px 24px 24px;background:linear-gradient(180deg,#0A0A0A,#0d0b05);overflow:hidden">
+    <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(212,175,55,.3),transparent)"></div>
+    <div style="position:absolute;top:12px;left:50%;transform:translateX(-50%);color:rgba(212,175,55,.03);font-size:50px;letter-spacing:25px;pointer-events:none;white-space:nowrap">𓂀 𓁢 𓅃 𓆣 𓇋</div>
+    <div style="position:relative;z-index:1;max-width:1200px;margin:0 auto">
+        <div style="display:flex;flex-wrap:wrap;gap:36px;justify-content:space-between;margin-bottom:28px">
+            <div style="flex:1;min-width:200px">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+                    <div style="width:36px;height:36px;border:2px solid #D4AF37;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(212,175,55,.1)"><svg viewBox="0 0 200 120" width="22" height="22" fill="none"><path d="M100 10 C60 10,20 50,10 60 C20 70,60 110,100 110 C140 110,180 70,190 60 C180 50,140 10,100 10Z" stroke="#D4AF37" stroke-width="4" fill="rgba(212,175,55,.2)"/><circle cx="100" cy="60" r="18" stroke="#D4AF37" stroke-width="3" fill="rgba(212,175,55,.15)"/><circle cx="100" cy="60" r="7" fill="#D4AF37"/></svg></div>
+                    <div class="gold-text" style="font-family:'Amiri',serif;font-size:18px;font-weight:700">صالح للعطور</div>
+                </div>
+                <p style="color:rgba(255,255,255,.3);font-size:12px;line-height:1.7;max-width:260px">صالح للعطور — الفخامة تبدأ من أول رشة</p>
+            </div>
+            <div style="flex:1;min-width:160px">
+                <h4 style="color:#D4AF37;font-family:'Amiri',serif;font-size:15px;margin-bottom:10px">تواصل معنا</h4>
+                <a href="tel:+2001000017414" style="text-decoration:none;color:rgba(255,255,255,.4);font-size:12px;display:flex;align-items:center;gap:6px;margin-bottom:6px"><i class="fas fa-phone" style="color:#D4AF37;font-size:11px"></i> 01000017414</a>
+                <a href="https://wa.me/201000017414" target="_blank" style="text-decoration:none;color:rgba(255,255,255,.4);font-size:12px;display:flex;align-items:center;gap:6px"><i class="fab fa-whatsapp" style="color:#D4AF37;font-size:11px"></i> واتساب</a>
+            </div>
+            <div style="flex:1;min-width:160px">
+                <h4 style="color:#D4AF37;font-family:'Amiri',serif;font-size:15px;margin-bottom:10px">تابعنا</h4>
+                <div style="display:flex;gap:8px">
+                    <a href="https://www.facebook.com/share/187FMcJiQi/?mibextid=wwXIfr" target="_blank" class="social-icon" style="width:34px;height:34px;border-radius:50%;border:1px solid rgba(212,175,55,.2);display:flex;align-items:center;justify-content:center;color:#D4AF37;text-decoration:none;font-size:13px;background:transparent"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/saleh_perfumes" target="_blank" class="social-icon" style="width:34px;height:34px;border-radius:50%;border:1px solid rgba(212,175,55,.2);display:flex;align-items:center;justify-content:center;color:#D4AF37;text-decoration:none;font-size:13px;background:transparent"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.tiktok.com/@karamsalehkamel" target="_blank" class="social-icon" style="width:34px;height:34px;border-radius:50%;border:1px solid rgba(212,175,55,.2);display:flex;align-items:center;justify-content:center;color:#D4AF37;text-decoration:none;font-size:13px;background:transparent"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://t.me/+rjo72_YTIutiMWZk" target="_blank" class="social-icon" style="width:34px;height:34px;border-radius:50%;border:1px solid rgba(212,175,55,.2);display:flex;align-items:center;justify-content:center;color:#D4AF37;text-decoration:none;font-size:13px;background:transparent"><i class="fab fa-telegram-plane"></i></a>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="footer-col">
-        <h4>روابط سريعة</h4>
-        <div class="footer-links">
-          <a href="#hero">الرئيسية</a>
-          <a href="#categories">التصنيفات</a>
-          <a href="#products">العطور</a>
-          <a href="#about">من نحن</a>
-          <a href="#social">تابعنا</a>
-          <a href="#contact">اطلب الآن</a>
-        </div>
-      </div>
-      <div class="footer-col">
-        <h4>تواصل معنا</h4>
-        <a href="tel:+201000017414" class="footer-contact-item"><i class="fas fa-phone"></i> 01000017414</a>
-        <a href="https://wa.me/201000017414" target="_blank" class="footer-contact-item"><i class="fab fa-whatsapp"></i> واتساب</a>
-        <a href="https://www.facebook.com/share/187FMcJiQi/?mibextid=wwXIfr" target="_blank" class="footer-contact-item"><i class="fab fa-facebook-f"></i> فيسبوك</a>
-        <a href="https://www.instagram.com/saleh_perfumes" target="_blank" class="footer-contact-item"><i class="fab fa-instagram"></i> إنستجرام</a>
-        <a href="https://t.me/+rjo72_YTIutiMWZk" target="_blank" class="footer-contact-item"><i class="fab fa-telegram-plane"></i> تيليجرام</a>
-        <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i> مصر</div>
-      </div>
+        <div style="text-align:center;border-top:1px solid rgba(212,175,55,.08);padding-top:18px"><p style="color:rgba(255,255,255,.2);font-size:11px">© 2025 صالح للعطور — الفخامة تبدأ من أول رشة 𓂀</p></div>
     </div>
-    <div class="gold-div"><span>𓂀</span></div>
-    <div class="footer-copy">
-      <p>© 2025 صالح للعطور - جميع الحقوق محفوظة</p>
-      <p class="footer-tagline">صالح للعطور — الفخامة تبدأ من أول رشة 𓁹</p>
-    </div>
-  </div>
 </footer>
 
-<!-- WHATSAPP FLOAT -->
-<a href="https://wa.me/201000017414" target="_blank" class="wa-float" title="تواصل عبر واتساب">
-  <i class="fab fa-whatsapp"></i>
-</a>
+<!-- Floating Buttons -->
+<a href="https://wa.me/201000017414" target="_blank" class="whatsapp-float"><i class="fab fa-whatsapp" style="color:#fff;font-size:26px"></i></a>
+<button class="cart-float" onclick="openCart()"><i class="fas fa-shopping-bag"></i><span id="cart-badge" class="cart-badge" style="display:none">0</span></button>
 
 <script>
-// ====== PRODUCTS DATA ======
-const ALL_PRODUCTS = [
-  // NICHE
-  {cat:'niche',name:'شيكولت ميكس',desc:'نيش فاخر',icon:'𓂀',prices:{30:349,50:549,100:1049}},
-  {cat:'niche',name:'افتر نون سويم',desc:'نيش فاخر',icon:'𓁹',prices:{30:349,50:549,100:1049}},
-  {cat:'niche',name:'الثائر من دي مارلي',desc:'De Marly',icon:'𓅃',prices:{30:349,50:549,100:1049}},
-  {cat:'niche',name:'بلاك افغانو',desc:'نيش فاخر',icon:'𓆣',prices:{30:349,50:549,100:1049}},
-  {cat:'niche',name:'هيلين من قصة',desc:'Kaja',icon:'𓇋',prices:{30:349,50:549,100:1049}},
-  {cat:'niche',name:'سمر هامر',desc:'نيش فاخر',icon:'𓈖',prices:{30:349,50:549,100:1049}},
-  {cat:'niche',name:'عود مركوجا',desc:'نيش فاخر',icon:'𓉐',prices:{30:349,50:549,100:1049}},
-  {cat:'niche',name:'نيو كلاس من زيرجوف',desc:'Xerjoff',icon:'𓊝',prices:{30:349,50:549,100:1049}},
-  {cat:'niche',name:'ايربابورا من زيرجوف',desc:'Xerjoff',icon:'𓂀',prices:{30:349,50:549,100:1049}},
-  {cat:'niche',name:'سيمفوني من لويس فيتون',desc:'Louis Vuitton',icon:'𓁹',prices:{30:349,50:549,100:1049}},
-  {cat:'niche',name:'الكسندريا 2 من زيرجوف',desc:'Xerjoff',icon:'𓅃',prices:{30:349,50:549,100:1049}},
-  {cat:'niche',name:'فانيلا نكتار',desc:'نيش فاخر',icon:'𓆣',prices:{30:349,50:549,100:1049}},
-  {cat:'niche',name:'مجيامير من اورتو باريسي',desc:'Orto Parisi',icon:'𓇋',prices:{30:349,50:549,100:1049}},
-  {cat:'niche',name:'ناكسوس من زيرجوف',desc:'Xerjoff',icon:'𓈖',prices:{30:349,50:549,100:1049}},
-  {cat:'niche',name:'شيروسا من سول دي جانيرو',desc:'Sol de Janeiro',icon:'𓉐',prices:{30:349,50:549,100:1049}},
-  {cat:'niche',name:'بكرات روج',desc:'Baccarat Rouge',icon:'𓊝',prices:{30:349,50:549,100:1049}},
-  {cat:'niche',name:'انترلود من امواج',desc:'Amouage',icon:'𓂀',prices:{30:349,50:549,100:1049}},
-  {cat:'niche',name:'كراش ان مي',desc:'نيش فاخر',icon:'𓁹',prices:{30:349,50:549,100:1049}},
-  {cat:'niche',name:'هيبيسكس من هيجادا',desc:'Hijada',icon:'𓅃',prices:{30:349,50:549,100:1049}},
-  {cat:'niche',name:'انجل شير من كليان',desc:'Kilian',icon:'𓆣',prices:{30:349,50:549,100:1049}},
-  {cat:'niche',name:'امبريال فالي من قصة',desc:'Kaja',icon:'𓇋',prices:{30:349,50:549,100:1049}},
-  {cat:'niche',name:'كريد افينتوس',desc:'Creed Aventus',icon:'𓈖',prices:{30:349,50:549,100:1049}},
-  {cat:'niche',name:'نيشان هاشيفان',desc:'نيش فاخر',icon:'𓉐',prices:{30:349,50:549,100:1049}},
-  {cat:'niche',name:'لايتون من دي مارلي',desc:'De Marly',icon:'𓊝',prices:{30:349,50:549,100:1049}},
-  {cat:'niche',name:'كاستيلا من قصة',desc:'Kaja',icon:'𓂀',prices:{30:349,50:549,100:1049}},
-  {cat:'niche',name:'روسيندو ماتيو 5',desc:'نيش فاخر',icon:'𓁹',prices:{30:349,50:549,100:1049}},
-  {cat:'niche',name:'ايماجينيشن',desc:'Imagination',icon:'𓅃',prices:{30:349,50:549,100:1049}},
-  {cat:'niche',name:'سايد افيكت من انيشيو',desc:'Initio',icon:'𓆣',prices:{30:349,50:549,100:1049}},
-  {cat:'niche',name:'باسيفيك شيل',desc:'Pacific Shell',icon:'𓇋',prices:{30:349,50:549,100:1049}},
-  // WOMEN
-  {cat:'women',name:'برازليان كراش',desc:'حريمي فاخر',icon:'𓁹',prices:{30:249,50:349,100:649}},
-  {cat:'women',name:'كوكو مدموزيل شانيل',desc:'Chanel',icon:'𓂀',prices:{30:249,50:349,100:649}},
-  {cat:'women',name:'جورجينا سينس من لافيرن',desc:'LaFern',icon:'𓅃',prices:{30:249,50:349,100:649}},
-  {cat:'women',name:'كوكو فانيليا',desc:'حريمي فاخر',icon:'𓆣',prices:{30:249,50:349,100:649}},
-  {cat:'women',name:'يارا كاندي من لطافة',desc:'Lattafa',icon:'𓇋',prices:{30:249,50:349,100:649}},
-  {cat:'women',name:'لافي بيل',desc:'حريمي فاخر',icon:'𓈖',prices:{30:249,50:349,100:649}},
-  {cat:'women',name:'اوليمبيا',desc:'Olympia',icon:'𓉐',prices:{30:249,50:349,100:649}},
-  {cat:'women',name:'اسكندل حريمي',desc:'Scandal',icon:'𓊝',prices:{30:249,50:349,100:649}},
-  {cat:'women',name:'برادا بارادوكس',desc:'Prada Paradoxe',icon:'𓂀',prices:{30:249,50:349,100:649}},
-  {cat:'women',name:'بربري هير',desc:'Burberry Her',icon:'𓁹',prices:{30:249,50:349,100:649}},
-  {cat:'women',name:'فانيليا باودر',desc:'حريمي فاخر',icon:'𓅃',prices:{30:249,50:349,100:649}},
-  {cat:'women',name:'جود جيرل',desc:'Good Girl',icon:'𓆣',prices:{30:249,50:349,100:649}},
-  {cat:'women',name:'يارا لطافة',desc:'Lattafa Yara',icon:'𓇋',prices:{30:249,50:349,100:649}},
-  {cat:'women',name:'رالف لورين',desc:'Ralph Lauren',icon:'𓈖',prices:{30:249,50:349,100:649}},
-  {cat:'women',name:'اميرة العرب',desc:'حريمي شرقي',icon:'𓉐',prices:{30:249,50:349,100:649}},
-  {cat:'women',name:'جوتشي جيلتي',desc:'Gucci Guilty',icon:'𓊝',prices:{30:249,50:349,100:649}},
-  {cat:'women',name:'فانيليا فاتال',desc:'حريمي فاخر',icon:'𓂀',prices:{30:249,50:349,100:649}},
-  // MEN DESIGNER
-  {cat:'men',name:'زارا مان',desc:'Zara Man',icon:'𓂀',prices:{30:249,50:349,100:699}},
-  {cat:'men',name:'فلانتينو بورن ان روما',desc:'Valentino',icon:'𓁹',prices:{30:249,50:349,100:699}},
-  {cat:'men',name:'كول ووتر بلو',desc:'Cool Water Blue',icon:'𓅃',prices:{30:249,50:349,100:699}},
-  {cat:'men',name:'سوفاج',desc:'Sauvage Dior',icon:'𓆣',prices:{30:249,50:349,100:699}},
-  {cat:'men',name:'وان مليون لاكي',desc:'1 Million Lucky',icon:'𓇋',prices:{30:249,50:349,100:699}},
-  {cat:'men',name:'وان مليون من باكو رابان',desc:'Paco Rabanne',icon:'𓈖',prices:{30:249,50:349,100:699}},
-  {cat:'men',name:'عمرو دياب',desc:'رجالي فاخر',icon:'𓉐',prices:{30:249,50:349,100:699}},
-  {cat:'men',name:'هوجو بوس',desc:'Hugo Boss',icon:'𓊝',prices:{30:249,50:349,100:699}},
-  {cat:'men',name:'انفكتوس',desc:'Invictus',icon:'𓂀',prices:{30:249,50:349,100:699}},
-  {cat:'men',name:'انفكتوس اليكسير',desc:'Invictus Elixir',icon:'𓁹',prices:{30:249,50:349,100:699}},
-  {cat:'men',name:'فوياج',desc:'Voyage Hermes',icon:'𓅃',prices:{30:249,50:349,100:699}},
-  {cat:'men',name:'اكوا دي جيو',desc:'Acqua Di Gio',icon:'𓆣',prices:{30:249,50:349,100:699}},
-  {cat:'men',name:'بلاك ليكزس',desc:'Black Lexus',icon:'𓇋',prices:{30:249,50:349,100:699}},
-  {cat:'men',name:'لو مال لو برفيوم',desc:'Jean Paul',icon:'𓈖',prices:{30:249,50:349,100:699}},
-  {cat:'men',name:'كريد سيلفر',desc:'Creed Silver',icon:'𓉐',prices:{30:249,50:349,100:699}},
-  {cat:'men',name:'كينج',desc:'King',icon:'𓊝',prices:{30:249,50:349,100:699}},
-  {cat:'men',name:'جورج قرداحي',desc:'رجالي فاخر',icon:'𓂀',prices:{30:249,50:349,100:699}},
-  {cat:'men',name:'تومي هيل',desc:'Tommy Hilfiger',icon:'𓁹',prices:{30:249,50:349,100:699}},
-  {cat:'men',name:'فرزاتشي ايروس',desc:'Versace Eros',icon:'𓅃',prices:{30:249,50:349,100:699}},
-  {cat:'men',name:'باد بوي',desc:'Bad Boy',icon:'𓆣',prices:{30:249,50:349,100:699}},
-  {cat:'men',name:'واي من ايف سان لوران',desc:'YSL Y',icon:'𓇋',prices:{30:249,50:349,100:699}},
-  {cat:'men',name:'دانهل ديزاير بلو',desc:'Dunhill',icon:'𓈖',prices:{30:249,50:349,100:699}},
-  {cat:'men',name:'هاج سينت',desc:'Haj Scent',icon:'𓉐',prices:{30:249,50:349,100:699}},
-  {cat:'men',name:'سيلفر سنت',desc:'Silver Scent',icon:'𓊝',prices:{30:249,50:349,100:699}},
-  {cat:'men',name:'اسكندر باي نايت',desc:'Escada',icon:'𓂀',prices:{30:249,50:349,100:699}},
-  {cat:'men',name:'212 سكسي',desc:'CH 212',icon:'𓁹',prices:{30:249,50:349,100:699}},
-  {cat:'men',name:'بلو شانيل',desc:'Bleu de Chanel',icon:'𓅃',prices:{30:249,50:349,100:699}},
-  {cat:'men',name:'مونت بلانك بلو',desc:'Mont Blanc',icon:'𓆣',prices:{30:249,50:349,100:699}},
-  {cat:'men',name:'لاكوست وايت',desc:'Lacoste',icon:'𓇋',prices:{30:249,50:349,100:699}},
-  {cat:'men',name:'لاكوست اسينشال',desc:'Lacoste',icon:'𓈖',prices:{30:249,50:349,100:699}},
-  {cat:'men',name:'BMW',desc:'BMW Signature',icon:'𓉐',prices:{30:249,50:349,100:699}},
-  {cat:'men',name:'بلاك اوبيوم',desc:'Black Opium',icon:'𓊝',prices:{30:249,50:349,100:699}},
-  {cat:'men',name:'بلاك XS',desc:'Paco Rabanne',icon:'𓂀',prices:{30:249,50:349,100:699}},
-  {cat:'men',name:'شاليمار رجالي',desc:'Shalimar',icon:'𓁹',prices:{30:249,50:349,100:699}},
-  {cat:'men',name:'شامبيون',desc:'Champion',icon:'𓅃',prices:{30:249,50:349,100:699}},
-  {cat:'men',name:'كنزو مان',desc:'Kenzo',icon:'𓆣',prices:{30:249,50:349,100:699}},
-  {cat:'men',name:'كاريزما',desc:'Charisma',icon:'𓇋',prices:{30:249,50:349,100:699}},
-  {cat:'men',name:'ازارو ذا موست وانتد',desc:'Azzaro',icon:'𓈖',prices:{30:249,50:349,100:699}},
-  {cat:'men',name:'CK1',desc:'Calvin Klein',icon:'𓉐',prices:{30:249,50:349,100:699}},
-  // ORIENTAL
-  {cat:'oriental',name:'غبار الذهب',desc:'شرقي فاخر',icon:'𓂀',prices:{30:299,50:449,100:849}},
-  {cat:'oriental',name:'خمرة دخان',desc:'شرقي فاخر',icon:'𓁹',prices:{30:299,50:449,100:849}},
-  {cat:'oriental',name:'خمرة قهوة',desc:'شرقي فاخر',icon:'𓅃',prices:{30:299,50:449,100:849}},
-  {cat:'oriental',name:'خمرة لطافة',desc:'Lattafa',icon:'𓆣',prices:{30:299,50:449,100:849}},
-  {cat:'oriental',name:'الترامال',desc:'شرقي فاخر',icon:'𓇋',prices:{30:299,50:449,100:849}},
-  {cat:'oriental',name:'9PM',desc:'شرقي فاخر',icon:'𓈖',prices:{30:299,50:449,100:849}},
-  {cat:'oriental',name:'عود كلمات',desc:'شرقي عود',icon:'𓉐',prices:{30:299,50:449,100:849}},
-  {cat:'oriental',name:'مانسيرا روز فانيليا',desc:'Mancera',icon:'𓊝',prices:{30:299,50:449,100:849}},
-  {cat:'oriental',name:'استرونجر وذ يو انتنسلي',desc:'Stronger',icon:'𓂀',prices:{30:299,50:449,100:849}},
-  {cat:'oriental',name:'عفيف من لطافة',desc:'Lattafa',icon:'𓁹',prices:{30:299,50:449,100:849}},
-  {cat:'oriental',name:'نبراس من لطافة',desc:'Lattafa',icon:'𓅃',prices:{30:299,50:449,100:849}},
-  {cat:'oriental',name:'مضاوي جولد',desc:'Madawi Gold',icon:'𓆣',prices:{30:299,50:449,100:849}},
-  {cat:'oriental',name:'مضاوي',desc:'Madawi',icon:'𓇋',prices:{30:299,50:449,100:849}},
-  {cat:'oriental',name:'جنتل مان اكستريم',desc:'شرقي فاخر',icon:'𓈖',prices:{30:299,50:449,100:849}},
-  {cat:'oriental',name:'لالونا من قصة',desc:'Kaja',icon:'𓉐',prices:{30:299,50:449,100:849}},
-  {cat:'oriental',name:'سافا من قصة',desc:'Kaja',icon:'𓊝',prices:{30:299,50:449,100:849}},
-  {cat:'oriental',name:'أموري كافيه',desc:'Amouri Cafe',icon:'𓂀',prices:{30:299,50:449,100:849}},
-  {cat:'oriental',name:'ماجيك الجزيرة',desc:'شرقي فاخر',icon:'𓁹',prices:{30:299,50:449,100:849}},
-  {cat:'oriental',name:'أمير العود',desc:'عود شرقي',icon:'𓅃',prices:{30:299,50:449,100:849}},
-  {cat:'oriental',name:'توباكو فانيلا',desc:'Tobacco Vanilla',icon:'𓆣',prices:{30:299,50:449,100:849}},
-  {cat:'oriental',name:'شهرة من الرصاصي',desc:'Al Rasasi',icon:'𓇋',prices:{30:299,50:449,100:849}},
-  {cat:'oriental',name:'بديع العود',desc:'عود فاخر',icon:'𓈖',prices:{30:299,50:449,100:849}},
-  {cat:'oriental',name:'وصال من العربية للعود',desc:'Arabia Oud',icon:'𓉐',prices:{30:299,50:449,100:849}},
-  // MUSK
-  {cat:'musk',name:'مسك تفاح',desc:'مسك فاخر',icon:'𓂀',prices:null},
-  {cat:'musk',name:'مسك فراولة',desc:'مسك فاخر',icon:'𓁹',prices:null},
-  {cat:'musk',name:'مسك أناناس',desc:'مسك فاخر',icon:'𓅃',prices:null},
-  {cat:'musk',name:'مسك توت',desc:'مسك فاخر',icon:'𓆣',prices:null},
-  {cat:'musk',name:'مسك رمان',desc:'مسك فاخر',icon:'𓇋',prices:null},
-  {cat:'musk',name:'مسك غزل البنات',desc:'مسك فاخر',icon:'𓈖',prices:null},
-];
+// ====== DATA ======
+const CAT = {
+    niche: { name:'العطور النيش الفاخرة', nameEn:'Luxury Niche Collection', icon:'fa-crown',
+        prices:{'30ml':349,'50ml':549,'100ml':1049},
+        colors:{body:'#C9A84C',bodyD:'#8B6914',liq:'#D4AF37',liqD:'#6B4F1D',cap:'#A0882C',capD:'#6B5A1E',accent:'#FFD700',glow:'rgba(212,175,55,.35)'},
+        items:['شيكولت ميكس','افتر نون سويم','الثائر من دي مارلي','بلاك افغانو','هيلين من قصة','سمر هامر','عود مركوجا','نيو كلاس من زيرجوف','ايربابورا من زيرجوف','سيمفوني من لويس فيتون','الكسندريا 2 من زيرجوف','فانيلا نكتار','مجيامير من اورتو باريسي','ناكسوس من زيرجوف','شيروسا من سول دي جانيرو','بكرات روج','انترلود من امواج','كراش ان مي','هيبيسكس من هيجادا','انجل شير من كليان','امبريال فالي من قصة','كريد افينتوس','نيشان هاشيفان','لايتون من دي مارلي','كاستيلا من قصة','روسيندو ماتيو 5','ايماجينيشن','سايد افيكت من انيشيو','باسيفيك شيل']
+    },
+    women: { name:'العطور الحريمي', nameEn:'Women Collection', icon:'fa-venus',
+        prices:{'30ml':249,'50ml':349,'100ml':649},
+        colors:{body:'#C77DAA',bodyD:'#8B3A62',liq:'#E8A0C8',liqD:'#9E4F7A',cap:'#A65D8A',capD:'#6B2D52',accent:'#F0B8D8',glow:'rgba(199,125,170,.35)'},
+        items:['برازليان كراش','كوكو مدموزيل شانيل','جورجينا سينس من لافيرن','كوكو فانيليا','يارا كاندي من لطافة','لافي بيل','اوليمبيا','اسكندل حريمي','برادا بارادوكس','بربري هير','فانيليا باودر','جود جيرل','يارا لطافة','رالف لورين','اميرة العرب','جوتشي جيلتي','فانيليا فاتال']
+    },
+    men: { name:'العطور الديزاينر الرجالي', nameEn:'Designer Men Collection', icon:'fa-mars',
+        prices:{'30ml':249,'50ml':349,'100ml':699},
+        colors:{body:'#4A6FA5',bodyD:'#1A3A5C',liq:'#5C84BD',liqD:'#2A4F7A',cap:'#3A5A8A',capD:'#1A2F4F',accent:'#7EA8D4',glow:'rgba(74,111,165,.35)'},
+        items:['زارا مان','فلانتينو بورن ان روما','كول ووتر بلو','سوفاج','وان مليون لاكي','وان مليون من باكو رابن','عمرو دياب','هوجو بوس','انفكتوس','انفكتوس اليكسير','فوياج','اكوا دي جيو','بلاك ليكزس','لو مال لو برفيوم من جان بول','كريد سيلفر','كينج','جورج قرداحي','تومي هيل','فرزاتشي ايروس','باد بوي','واي من ايف سان لوران','دانهل ديزاير بلو','هاج سينت','سيلفر سنت','اسكندر باي نايت','212 سكسي','بلو شانيل','مونت بلانك بلو','لاكوست وايت','لاكوست اسينشال','BMW','بلاك اوبيوم','بلاك XS','شاليمار رجالي','شامبيون','كنزو مان','كاريزما','ازارو ذا موست وانتد','CK1']
+    },
+    oriental: { name:'العطور الشرقية', nameEn:'Oriental Collection', icon:'fa-star-and-crescent',
+        prices:{'30ml':299,'50ml':449,'100ml':849},
+        colors:{body:'#B87333',bodyD:'#6B3F1D',liq:'#D4944A',liqD:'#7A4A20',cap:'#9A6028',capD:'#5A3218',accent:'#E8A860',glow:'rgba(184,115,51,.35)'},
+        items:['غبار الذهب','خمرة دخان','خمرة قهوة','خمرة لطافة','الترامال','9PM','عود كلمات','مانسيرا روز فانيليا','استرونجر وذ يو انتنسلي','عفيف من لطافة','نبراس من لطافة','مضاوي جولد','مضاوي','جنتل مان اكستريم','لالونا من قصة','سافا من قصة','أموري كافيه','ماجيك الجزيرة','أمير العود','توباكو فانيلا','شهرة من الرصاصي','بديع العود','وصال من العربية للعود']
+    },
+    musk: { name:'المسكات', nameEn:'Musk Collection', icon:'fa-droplet',
+        prices:{'30ml':149,'50ml':199,'100ml':299},
+        colors:{body:'#A8B89C',bodyD:'#5A6B50',liq:'#C8D8BC',liqD:'#7A8A70',cap:'#8A9A80',capD:'#4A5A40',accent:'#D0E0C4',glow:'rgba(168,184,156,.35)'},
+        items:['مسك تفاح','مسك فراولة','مسك أناناس','مسك توت','مسك رمان','مسك غزل البنات']
+    }
+};
 
-const BADGE = {niche:'نيش فاخر',women:'حريمي',men:'رجالي',oriental:'شرقي',musk:'مسكات'};
-const WA = 'https://wa.me/201000017414?text=';
+let currentFilter = 'all';
+let selectedSizes = {};
+let cart = [];
 
-let curFilter = 'all';
-let curSearch = '';
-
-function buildCard(p){
-  const priceHtml = p.prices
-    ? `<div class="prices">
-        <div class="price-item">30ml <span>${p.prices[30]} ج</span></div>
-        <div class="price-item">50ml <span>${p.prices[50]} ج</span></div>
-        <div class="price-item">100ml <span>${p.prices[100]} ج</span></div>
-       </div>`
-    : `<div class="prices"><div class="price-item" style="background:rgba(212,175,55,.1);border-color:rgba(212,175,55,.25);padding:8px 18px;"><span style="color:var(--gold2);">تواصل للسعر</span></div></div>`;
-  const waMsg = p.prices
-    ? encodeURIComponent(`السلام عليكم، أريد طلب:\nاسم العطر: ${p.name}\nالحجم: \nالكمية: \nالاسم: \nالعنوان: `)
-    : encodeURIComponent(`السلام عليكم، أريد الاستفسار عن: ${p.name}\nالاسم: \nالعنوان: `);
-  return `<div class="pcard rv">
-    <div class="pcard-badge">${BADGE[p.cat]||''}</div>
-    <div class="pcard-icon">${p.icon}</div>
-    <h3>${p.name}</h3>
-    <p class="desc">${p.desc}</p>
-    ${priceHtml}
-    <a href="${WA}${waMsg}" target="_blank" class="pcard-btn">
-      <i class="fab fa-whatsapp"></i> اطلب الآن
-    </a>
-  </div>`;
+// ====== BOTTLE SVG ======
+function bottleSVG(catId, idx) {
+    const c = CAT[catId].colors, u = catId + idx;
+    return `<svg viewBox="0 0 100 180" style="width:100%;max-width:100px;display:block;margin:0 auto">
+        <defs>
+            <linearGradient id="bg${u}" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="${c.body}"/><stop offset="100%" stop-color="${c.bodyD}"/></linearGradient>
+            <linearGradient id="lq${u}" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="${c.liq}"/><stop offset="100%" stop-color="${c.liqD}"/></linearGradient>
+            <linearGradient id="cp${u}" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="${c.cap}"/><stop offset="100%" stop-color="${c.capD}"/></linearGradient>
+        </defs>
+        <ellipse cx="50" cy="105" rx="32" ry="55" fill="${c.glow}" opacity=".1"/>
+        <rect x="38" y="8" width="24" height="18" rx="3" fill="url(#cp${u})"/>
+        <rect x="36" y="24" width="28" height="4" rx="1" fill="${c.accent}" opacity=".5"/>
+        <rect x="43" y="28" width="14" height="22" rx="2" fill="url(#bg${u})" opacity=".9"/>
+        <path d="M43 50Q43 46 35 48L25 53 25 56 75 56 75 53 65 48Q57 46 57 50Z" fill="url(#bg${u})" opacity=".8"/>
+        <rect x="25" y="53" width="50" height="107" rx="4" fill="url(#bg${u})"/>
+        <rect x="25" y="53" width="50" height="3" rx="1" fill="${c.accent}" opacity=".45"/>
+        <rect x="25" y="157" width="50" height="3" rx="1" fill="${c.accent}" opacity=".25"/>
+        <rect x="30" y="70" width="40" height="84" rx="2" fill="url(#lq${u})" opacity=".35"/>
+        <rect x="33" y="90" width="34" height="36" rx="2" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.1)" stroke-width=".5"/>
+        <line x1="37" y1="102" x2="63" y2="102" stroke="rgba(255,255,255,.12)" stroke-width=".5"/>
+        <line x1="37" y1="109" x2="57" y2="109" stroke="rgba(255,255,255,.08)" stroke-width=".5"/>
+        <line x1="37" y1="116" x2="50" y2="116" stroke="rgba(255,255,255,.06)" stroke-width=".5"/>
+        <rect x="33" y="60" width="3" height="42" rx="1.5" fill="rgba(255,255,255,.08)"/>
+        <rect x="38" y="63" width="1.5" height="28" rx=".75" fill="rgba(255,255,255,.04)"/>
+        <ellipse cx="50" cy="163" rx="18" ry="2" fill="${c.glow}" opacity=".15"/>
+    </svg>`;
 }
 
-function renderProducts(){
-  const grid = document.getElementById('products-grid');
-  const noRes = document.getElementById('no-results');
-  const q = curSearch.trim().toLowerCase();
-  const filtered = ALL_PRODUCTS.filter(p=>{
-    const matchCat = curFilter==='all' || p.cat===curFilter;
-    const matchQ = !q || p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q);
-    return matchCat && matchQ;
-  });
-  if(filtered.length===0){
-    grid.innerHTML='';
-    noRes.style.display='block';
-  } else {
-    noRes.style.display='none';
-    grid.innerHTML = filtered.map(buildCard).join('');
-    grid.querySelectorAll('.rv').forEach(el=>setTimeout(()=>el.classList.add('on'),50));
-  }
+// ====== RENDER PRODUCTS ======
+function renderProducts() {
+    const container = document.getElementById('products-container');
+    const search = document.getElementById('search-input').value.trim().toLowerCase();
+    let html = '', hasResults = false;
+    const cats = currentFilter === 'all' ? Object.keys(CAT) : [currentFilter];
+    cats.forEach(catId => {
+        const cat = CAT[catId];
+        const items = cat.items.filter(i => i.toLowerCase().includes(search));
+        if (!items.length) return;
+        hasResults = true;
+        html += `<div style="margin-bottom:50px">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+                <div style="display:flex;align-items:center;gap:10px">
+                    <div style="width:38px;height:38px;border-radius:10px;background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.15);display:flex;align-items:center;justify-content:center"><i class="fas ${cat.icon}" style="color:${cat.colors.accent};font-size:16px"></i></div>
+                    <div><h3 style="font-family:'Amiri',serif;font-size:20px;color:${cat.colors.accent};margin:0">${cat.name}</h3><span style="font-size:10px;color:rgba(255,255,255,.3);letter-spacing:1px">${cat.nameEn}</span></div>
+                </div>
+                <div style="display:flex;gap:6px;flex-wrap:wrap">
+                    <span class="cat-badge" style="border-color:${cat.colors.accent}33;color:${cat.colors.accent}">30ml = ${cat.prices['30ml']} ج</span>
+                    <span class="cat-badge" style="border-color:${cat.colors.accent}33;color:${cat.colors.accent}">50ml = ${cat.prices['50ml']} ج</span>
+                    <span class="cat-badge" style="border-color:${cat.colors.accent}33;color:${cat.colors.accent}">100ml = ${cat.prices['100ml']} ج</span>
+                </div>
+            </div>
+            <div class="slider-container" id="slider-${catId}">
+                <button class="slider-btn slider-btn-prev" onclick="slide('${catId}',-1)"><i class="fas fa-chevron-right"></i></button>
+                <div class="slider-track" id="track-${catId}">
+                    ${items.map((item, idx) => {
+                        const k = catId+'-'+idx;
+                        if (!selectedSizes[k]) selectedSizes[k] = '50ml';
+                        const sz = selectedSizes[k], price = cat.prices[sz];
+                        return `<div class="product-card" style="min-width:220px;max-width:220px">
+                            <div class="card-glow"></div>
+                            <div style="padding:20px 16px 10px;text-align:center;background:linear-gradient(180deg,${cat.colors.glow.replace('.35','.06')},transparent)">
+                                ${bottleSVG(catId, idx)}
+                            </div>
+                            <div style="padding:4px 14px 14px">
+                                <h4 style="font-family:'Amiri',serif;font-size:14px;color:${cat.colors.accent};margin:0 0 8px;line-height:1.3;min-height:36px">${item}</h4>
+                                <div style="display:flex;gap:4px;margin-bottom:10px">
+                                    ${['30ml','50ml','100ml'].map(s=>`<button class="size-btn ${sz===s?'active':''}" onclick="pickSize('${k}','${s}',${cat.prices[s]},this)" style="${sz===s?'border-color:'+cat.colors.accent+';color:'+cat.colors.accent:''}">${s}</button>`).join('')}
+                                </div>
+                                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+                                    <span id="p-${k}" style="font-size:20px;font-weight:700;color:${cat.colors.accent}">${price} <span style="font-size:11px">ج.م</span></span>
+                                </div>
+                                <button onclick="addToCart('${item.replace(/'/g,"\\'")}','${catId}','${sz}',${price})" style="width:100%;padding:9px;border-radius:8px;border:1px solid ${cat.colors.accent}40;background:${cat.colors.accent}15;color:${cat.colors.accent};font-family:'Cairo',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center;gap:6px" onmouseover="this.style.background='${cat.colors.accent}30';this.style.borderColor='${cat.colors.accent}'" onmouseout="this.style.background='${cat.colors.accent}15';this.style.borderColor='${cat.colors.accent}40'">
+                                    <i class="fas fa-cart-plus"></i> أضف للسلة
+                                </button>
+                            </div>
+                        </div>`;
+                    }).join('')}
+                </div>
+                <button class="slider-btn slider-btn-next" onclick="slide('${catId}',1)"><i class="fas fa-chevron-left"></i></button>
+            </div>
+        </div>`;
+    });
+    container.innerHTML = html;
+    document.getElementById('no-results').style.display = hasResults ? 'none' : 'block';
 }
 
-function setFilter(cat, btn){
-  curFilter = cat;
-  document.querySelectorAll('.ftab').forEach(t=>t.classList.remove('active'));
-  btn.classList.add('active');
-  renderProducts();
+// ====== SIZE PICKER ======
+function pickSize(k, s, price, btn) {
+    selectedSizes[k] = s;
+    const el = document.getElementById('p-'+k);
+    if (el) el.innerHTML = price + ' <span style="font-size:11px">ج.م</span>';
+    btn.parentElement.querySelectorAll('.size-btn').forEach(b=>{b.classList.remove('active');b.style.borderColor='';b.style.color=''});
+    btn.classList.add('active');
+    const accent = btn.closest('.product-card').querySelector('h4').style.color;
+    btn.style.borderColor = accent; btn.style.color = accent;
 }
 
-function doSearch(){
-  curSearch = document.getElementById('search-input').value;
-  renderProducts();
+// ====== CART ======
+function addToCart(name, catId, size, price) {
+    const existing = cart.find(i => i.name === name && i.size === size);
+    if (existing) { existing.quantity++; }
+    else { cart.push({ name, catId, size, price, quantity: 1 }); }
+    updateCartUI();
+    showToast(`تمت إضافة "${name}" للسلة ✓`);
+    // Badge bump
+    const badge = document.getElementById('cart-badge');
+    badge.classList.remove('bump'); void badge.offsetWidth; badge.classList.add('bump');
 }
 
-function filterAndScroll(cat){
-  curFilter = cat;
-  document.querySelectorAll('.ftab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.ftab').forEach(t=>{
-    if(t.textContent.includes(BADGE[cat]||cat)) t.classList.add('active');
-  });
-  renderProducts();
-  document.getElementById('products').scrollIntoView({behavior:'smooth'});
+function removeFromCart(idx) { cart.splice(idx, 1); updateCartUI(); }
+function changeQty(idx, d) {
+    cart[idx].quantity += d;
+    if (cart[idx].quantity < 1) cart.splice(idx, 1);
+    updateCartUI();
+}
+function clearCart() { cart = []; updateCartUI(); showToast('تم إفراغ السلة'); }
+
+function updateCartUI() {
+    const badge = document.getElementById('cart-badge');
+    const totalItems = cart.reduce((s,i)=>s+i.quantity,0);
+    badge.textContent = totalItems;
+    badge.style.display = totalItems > 0 ? 'flex' : 'none';
+
+    const container = document.getElementById('cart-items');
+    const footer = document.getElementById('cart-footer');
+    if (!cart.length) {
+        container.innerHTML = `<div style="text-align:center;padding:60px 20px"><i class="fas fa-shopping-bag" style="font-size:48px;color:rgba(212,175,55,.15);margin-bottom:16px;display:block"></i><p style="color:rgba(255,255,255,.35);font-size:16px">السلة فارغة</p><p style="color:rgba(255,255,255,.2);font-size:13px;margin-top:4px">أضف منتجات للبدء</p></div>`;
+        footer.style.display = 'none';
+        return;
+    }
+    footer.style.display = 'block';
+    let total = 0;
+    container.innerHTML = cart.map((item, idx) => {
+        const c = CAT[item.catId].colors;
+        const subtotal = item.price * item.quantity;
+        total += subtotal;
+        return `<div class="cart-item" style="margin-bottom:10px;border-color:${c.accent}15">
+            <div style="width:42px;height:42px;border-radius:10px;background:${c.accent}12;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                <i class="fas fa-flask" style="color:${c.accent};font-size:16px"></i>
+            </div>
+            <div style="flex:1;min-width:0">
+                <div style="display:flex;justify-content:space-between;align-items:start;gap:6px">
+                    <h4 style="font-size:13px;color:${c.accent};margin:0;line-height:1.3;flex:1">${item.name}</h4>
+                    <button onclick="removeFromCart(${idx})" style="background:none;border:none;color:rgba(255,255,255,.25);cursor:pointer;font-size:12px;padding:2px;transition:color .2s;flex-shrink:0" onmouseover="this.style.color='#ef4444'" onmouseout="this.style.color='rgba(255,255,255,.25)'"><i class="fas fa-times"></i></button>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">
+                    <div style="display:flex;align-items:center;gap:6px">
+                        <button class="qty-btn" onclick="changeQty(${idx},-1)">-</button>
+                        <span style="font-size:13px;min-width:20px;text-align:center">${item.quantity}</span>
+                        <button class="qty-btn" onclick="changeQty(${idx},1)">+</button>
+                        <span style="font-size:11px;color:rgba(255,255,255,.3);margin-right:4px">${item.size}</span>
+                    </div>
+                    <span style="font-size:14px;font-weight:700;color:${c.accent}">${subtotal} ج</span>
+                </div>
+            </div>
+        </div>`;
+    }).join('');
+    document.getElementById('cart-total').innerHTML = total + ' <span style="font-size:13px">ج.م</span>';
 }
 
-// ====== LOADING ======
-window.addEventListener('load',()=>{
-  setTimeout(()=>{
-    document.getElementById('ls').classList.add('out');
-  },2800);
-});
-
-// ====== PARTICLES ======
-const pc = document.getElementById('pc');
-const ctx = pc.getContext('2d');
-let parts=[];
-function rpc(){pc.width=window.innerWidth;pc.height=window.innerHeight;}
-rpc();
-window.addEventListener('resize',rpc);
-class Part{
-  constructor(){this.reset();}
-  reset(){
-    this.x=Math.random()*pc.width;this.y=Math.random()*pc.height;
-    this.sz=Math.random()*2.2+.4;this.sx=(Math.random()-.5)*.35;
-    this.sy=-Math.random()*.35-.1;this.op=Math.random()*.35+.08;
-    this.fs=Math.random()*.004+.002;this.grow=Math.random()>.5;
-  }
-  update(){
-    this.x+=this.sx;this.y+=this.sy;
-    this.grow?this.op+=this.fs:this.op-=this.fs;
-    if(this.grow&&this.op>=.45)this.grow=false;
-    if(!this.grow&&this.op<=.04)this.reset();
-    if(this.y<-5||this.x<-5||this.x>pc.width+5)this.reset();
-  }
-  draw(){
-    ctx.beginPath();ctx.arc(this.x,this.y,this.sz,0,Math.PI*2);
-    ctx.fillStyle=`rgba(212,175,55,${this.op})`;ctx.fill();
-    ctx.beginPath();ctx.arc(this.x,this.y,this.sz*2.8,0,Math.PI*2);
-    ctx.fillStyle=`rgba(212,175,55,${this.op*.12})`;ctx.fill();
-  }
+function openCart() {
+    document.getElementById('cart-panel').classList.add('open');
+    document.getElementById('cart-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
 }
-for(let i=0;i<55;i++)parts.push(new Part());
-function animP(){
-  ctx.clearRect(0,0,pc.width,pc.height);
-  parts.forEach(p=>{p.update();p.draw();});
-  requestAnimationFrame(animP);
-}
-animP();
-
-// ====== HIEROGLYPHS ======
-const HC=['𓂀','𓁢','𓅃','𓆣','𓇋','𓈖','𓉐','𓊝','𓋴','𓌙','𓁹','𓃭','𓅱'];
-const hc=document.getElementById('hieroglyphs');
-for(let i=0;i<14;i++){
-  const d=document.createElement('div');d.className='hiero';
-  d.textContent=HC[Math.floor(Math.random()*HC.length)];
-  d.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;font-size:${Math.random()*18+14}px;animation-duration:${Math.random()*6+7}s;animation-delay:${Math.random()*5}s;`;
-  hc.appendChild(d);
+function closeCart() {
+    document.getElementById('cart-panel').classList.remove('open');
+    document.getElementById('cart-overlay').classList.remove('open');
+    document.body.style.overflow = 'auto';
 }
 
-// ====== NAVBAR SCROLL ======
-window.addEventListener('scroll',()=>{
-  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>50);
-});
-
-// ====== PARALLAX ======
-window.addEventListener('scroll',()=>{
-  const sy=window.scrollY;
-  const sun=document.querySelector('.hero-sun');
-  if(sun)sun.style.transform=`translateX(-50%) translateY(${sy*.28}px)`;
-  const pyrs=document.querySelector('.pyramids');
-  if(pyrs)pyrs.style.transform=`translateY(${sy*.12}px)`;
-});
-
-// ====== MOBILE MENU ======
-function toggleMenu(){
-  const m=document.getElementById('mm');
-  m.classList.toggle('open');
-  document.body.style.overflow=m.classList.contains('open')?'hidden':'auto';
+function confirmOrder() {
+    if (!cart.length) return;
+    let msg = 'السلام عليكم، أريد طلب من صالح للعطور:\n━━━━━━━━━━━\n';
+    let total = 0;
+    cart.forEach((item, i) => {
+        const sub = item.price * item.quantity;
+        total += sub;
+        msg += `${i+1}. ${item.name}\n   الحجم: ${item.size} | الكمية: ${item.quantity} | السعر: ${sub} ج.م\n`;
+    });
+    msg += `━━━━━━━━━━━\nالإجمالي: ${total} ج.م\n\nالاسم: \nالعنوان: `;
+    window.open('https://wa.me/201000017414?text=' + encodeURIComponent(msg), '_blank');
+    showToast('تم تحويل طلبك إلى واتساب ✓');
 }
 
-// ====== SCROLL REVEAL ======
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach((e,i)=>{
-    if(e.isIntersecting) setTimeout(()=>e.target.classList.add('on'),i*80);
-  });
-},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
-document.querySelectorAll('.rv,.rvl,.rvr,.rvs').forEach(el=>obs.observe(el));
+// ====== SLIDER ======
+const slidePos = {};
+function slide(catId, dir) {
+    const track = document.getElementById('track-'+catId);
+    if (!track) return;
+    const step = 248;
+    const maxS = Math.max(0, track.scrollWidth - track.parentElement.offsetWidth);
+    if (!slidePos[catId]) slidePos[catId] = 0;
+    slidePos[catId] += dir * -step;
+    slidePos[catId] = Math.max(-maxS, Math.min(0, slidePos[catId]));
+    track.style.transform = `translateX(${slidePos[catId]}px)`;
+}
 
-// ====== ORDER FORM ======
-function submitOrder(e){
-  e.preventDefault();
-  const name=document.getElementById('f-name').value;
-  const phone=document.getElementById('f-phone').value;
-  const addr=document.getElementById('f-address').value;
-  const prod=document.getElementById('f-product').value;
-  const size=document.getElementById('f-size').value;
-  const qty=document.getElementById('f-qty').value;
-  const notes=document.getElementById('f-notes').value;
-  const msg=`السلام عليكم، أريد طلب:\nاسم العطر: ${prod}\nالحجم: ${size}\nالكمية: ${qty}\nالاسم: ${name}\nالهاتف: ${phone}\nالعنوان: ${addr}${notes?'\nملاحظات: '+notes:''}`;
-  showToast('تم تحويل طلبك إلى واتساب ✓');
-  setTimeout(()=>window.open('https://wa.me/201000017414?text='+encodeURIComponent(msg),'_blank'),600);
+// Touch slider
+let touchX = 0;
+document.addEventListener('touchstart', e => { if (e.target.closest('.slider-container')) touchX = e.touches[0].clientX; }, {passive:true});
+document.addEventListener('touchmove', e => {
+    if (!e.target.closest('.slider-container')) return;
+    const diff = touchX - e.touches[0].clientX;
+    if (Math.abs(diff) > 50) {
+        const cid = e.target.closest('.slider-container').id.replace('slider-','');
+        slide(cid, diff > 0 ? 1 : -1);
+        touchX = e.touches[0].clientX;
+    }
+}, {passive:true});
+
+// ====== FILTER ======
+function setFilter(f, btn) {
+    currentFilter = f;
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    slidePos[f] = 0;
+    renderProducts();
 }
 
 // ====== TOAST ======
-function showToast(msg){
-  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),3000);
+function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'), 2500);
 }
 
-// ====== SMOOTH SCROLL ======
-document.querySelectorAll('a[href^="#"]').forEach(a=>{
-  a.addEventListener('click',e=>{
-    e.preventDefault();
-    const t=document.querySelector(a.getAttribute('href'));
-    if(t)t.scrollIntoView({behavior:'smooth'});
-  });
+// ====== LOADING ======
+window.addEventListener('load', () => {
+    setTimeout(()=>{ document.getElementById('loading-screen').classList.add('hidden'); document.body.style.overflow='auto'; }, 2800);
 });
 
-// ====== INIT PRODUCTS ======
+// ====== PARTICLES ======
+const cvs = document.getElementById('particles-canvas'), cx = cvs.getContext('2d');
+let pts = [];
+function rc(){cvs.width=innerWidth;cvs.height=innerHeight}
+rc(); addEventListener('resize',rc);
+class P{constructor(){this.reset()}reset(){this.x=Math.random()*cvs.width;this.y=Math.random()*cvs.height;this.s=Math.random()*2+.5;this.sx=(Math.random()-.5)*.3;this.sy=-Math.random()*.3-.1;this.o=Math.random()*.3+.1;this.fs=Math.random()*.004+.002;this.g=Math.random()>.5}update(){this.x+=this.sx;this.y+=this.sy;if(this.g){this.o+=this.fs;if(this.o>=.5)this.g=false}else{this.o-=this.fs;if(this.o<=.05)this.reset()}if(this.y<-10)this.reset()}draw(){cx.beginPath();cx.arc(this.x,this.y,this.s,0,Math.PI*2);cx.fillStyle=`rgba(212,175,55,${this.o})`;cx.fill();cx.beginPath();cx.arc(this.x,this.y,this.s*3,0,Math.PI*2);cx.fillStyle=`rgba(212,175,55,${this.o*.12})`;cx.fill()}}
+for(let i=0;i<45;i++)pts.push(new P());
+(function ap(){cx.clearRect(0,0,cvs.width,cvs.height);pts.forEach(p=>{p.update();p.draw()});requestAnimationFrame(ap)})();
+
+// ====== HIEROGLYPHS ======
+const gl=['𓂀','𓁢','𓅃','𓆣','𓇋','𓈖','𓉐','𓊝','𓋴','𓌙','𓍯','𓁹','𓃭','𓅱'],hc=document.getElementById('hieroglyphs');
+for(let i=0;i<10;i++){const e=document.createElement('div');e.className='hieroglyph';e.textContent=gl[Math.floor(Math.random()*gl.length)];e.style.left=Math.random()*100+'%';e.style.top=Math.random()*100+'%';e.style.fontSize=(Math.random()*16+14)+'px';e.style.animationDuration=(Math.random()*6+8)+'s';e.style.animationDelay=(Math.random()*4)+'s';hc.appendChild(e)}
+
+// ====== SCROLL ======
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('active')})},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('navbar-scrolled',scrollY>50)});
+
+// ====== MOBILE MENU ======
+function toggleMobileMenu(){const m=document.getElementById('mobile-menu');m.classList.toggle('open');document.body.style.overflow=m.classList.contains('open')?'hidden':'auto'}
+
+// ====== SMOOTH SCROLL ======
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',function(e){e.preventDefault();const t=document.querySelector(this.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})});
+
+// ====== INIT ======
 renderProducts();
+updateCartUI();
 </script>
 </body>
 </html>
